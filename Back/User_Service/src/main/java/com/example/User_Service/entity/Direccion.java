@@ -46,7 +46,7 @@ public class Direccion {
 
     //Relaciones
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
 }

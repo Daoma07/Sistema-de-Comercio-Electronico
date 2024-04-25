@@ -1,10 +1,10 @@
 package com.example.User_Service.manager;
 
-import com.example.User_Service.entity.Usuario;
 import com.example.User_Service.service.impl.CredencialServiceImpl;
 import com.example.User_Service.service.impl.UsuarioServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.utilities.dto.CredencialDto;
+import com.mycompany.utilities.dto.UsuarioDto;
 import com.mycompany.utilities.request.RequestFormat;
 import com.mycompany.utilities.response.ResponseFormat;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ public class ActionRouter {
     public ActionRouter() {
         actionMap = new HashMap<>();
         actionMap.put("login", this::login);
-        actionMap.put("register", this::login);
+        actionMap.put("register", this::register);
     }
 
     public ResponseFormat route(RequestFormat requestFormat) {
@@ -45,15 +45,30 @@ public class ActionRouter {
     private ResponseFormat login(String content) {
         try {
             CredencialDto credencial = objectMapper.readValue(content, CredencialDto.class);
-            if (credencialServiceImpl.readCredencial(credencial) != null) {
-                UsuarioDto usuario = usuarioServiceImpl.
+            credencial = credencialServiceImpl.readCredencial(credencial);
+            if (credencial.getId_credencial() != null) {
+                UsuarioDto usuario = usuarioServiceImpl.findUsuariobyCredencial(credencial);
+                return new ResponseFormat(objectMapper.writeValueAsString(usuario),
+                        HttpStatus.OK.value());
             }
-
-            return new ResponseFormat(objectMapper.writeValueAsString(credencial),
-                    HttpStatus.OK.value());
+            return new ResponseFormat(objectMapper.writeValueAsString("No existe registros"),
+                    HttpStatus.NOT_FOUND.value());
         } catch (Exception ex) {
             Logger.getLogger(ActionRouter.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseFormat("No se pudo verificar las credenciales",
+                    HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
+    }
+
+    private ResponseFormat register(String content) {
+        try {
+            UsuarioDto usuarioDto = objectMapper.readValue(content, UsuarioDto.class);
+            usuarioDto = usuarioServiceImpl.createUsuario(usuarioDto);
+            return new ResponseFormat(objectMapper.writeValueAsString(usuarioDto),
+                    HttpStatus.OK.value());
+        } catch (Exception ex) {
+            Logger.getLogger(ActionRouter.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseFormat("No se pudo registar el usuario",
                     HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
     }

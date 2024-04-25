@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -64,7 +65,7 @@ public class Usuario {
     @JoinColumn(name = "credencial_id")
     private Credencial credencial;
 
-    @OneToMany(mappedBy = "usuario", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private List<Direccion> direcciones;
 
 }

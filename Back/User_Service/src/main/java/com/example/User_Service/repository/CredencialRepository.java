@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CredencialRepository extends JpaRepository<Credencial, Long> {
 
-    public Credencial findByCorreoAndContrasenia(String correo, String contreasenia);
+    public Credencial findByCorreoAndContrasenia(String correo, String contrasenia);
 
 }
