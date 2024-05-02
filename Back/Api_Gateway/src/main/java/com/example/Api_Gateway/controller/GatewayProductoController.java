@@ -3,7 +3,7 @@ package com.example.Api_Gateway.controller;
 import com.example.Api_Gateway.rabbit_client.RabbitMQClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mycompany.utilities.dto.CredencialDto;
+import com.mycompany.utilities.dto.ProductoDto;
 import com.mycompany.utilities.dto.UsuarioDto;
 import com.mycompany.utilities.request.RequestFormat;
 import com.mycompany.utilities.response.ResponseFormat;
@@ -17,29 +17,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
-@RequestMapping("api/user")
-public class GatewayUsuarioController {
+@RequestMapping("api/product")
+public class GatewayProductoController {
 
     private RabbitMQClient rabbitMQClient;
 
     @Autowired
     private ObjectMapper objectMapper;
 
-    public GatewayUsuarioController(RabbitMQClient rabbitMQClient) {
+    public GatewayProductoController(RabbitMQClient rabbitMQClient) {
         this.rabbitMQClient = rabbitMQClient;
     }
 
     @PostMapping("/register")
-    public ResponseFormat servicioRegister(@RequestBody UsuarioDto usuario) throws JsonProcessingException {
-        String jsonusuario = objectMapper.writeValueAsString(usuario);
-        RequestFormat requestFormat = new RequestFormat(jsonusuario, "register");
-        return rabbitMQClient.sendMessageUsuario(requestFormat);
+    public ResponseFormat servicioRegister(@RequestBody ProductoDto productoDto) throws JsonProcessingException {
+        String jsonusuario = objectMapper.writeValueAsString(productoDto);
+        RequestFormat requestFormat = new RequestFormat(jsonusuario, "create-product");
+        return rabbitMQClient.sendMessageInventario(requestFormat);
     }
 
-    @PostMapping("/login")
-    public ResponseFormat servicioLogin(@RequestBody CredencialDto credencial) throws JsonProcessingException {
-        String jsonCredencial = objectMapper.writeValueAsString(credencial);
-        RequestFormat requestFormat = new RequestFormat(jsonCredencial, "login");
-        return rabbitMQClient.sendMessageUsuario(requestFormat);
-    }
 }

@@ -1,7 +1,7 @@
 package com.mycompany.utilities.dto;
 
-import com.mycompany.utilities.dto.generos.Genero;
-import com.mycompany.utilities.dto.tipo_usuarios.TipoUsuario;
+import com.mycompany.utilities.dto.enums.Genero;
+import com.mycompany.utilities.dto.enums.TipoUsuario;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;

@@ -11,6 +11,7 @@ public class DireccionDto implements Serializable {
     private String ciudad;
     private String estado;
     private String codigo_postal;
+    private Long id_usaurio;
 
     public DireccionDto() {
     }
@@ -35,6 +36,17 @@ public class DireccionDto implements Serializable {
         this.ciudad = ciudad;
         this.estado = estado;
         this.codigo_postal = codigo_postal;
+    }
+
+    public DireccionDto(Long id_direccion, String calle, String numero, String colonia, String ciudad, String estado, String codigo_postal, Long id_usaurio) {
+        this.id_direccion = id_direccion;
+        this.calle = calle;
+        this.numero = numero;
+        this.colonia = colonia;
+        this.ciudad = ciudad;
+        this.estado = estado;
+        this.codigo_postal = codigo_postal;
+        this.id_usaurio = id_usaurio;
     }
 
     public Long getId_direccion() {
@@ -91,6 +103,14 @@ public class DireccionDto implements Serializable {
 
     public void setCodigo_postal(String codigo_postal) {
         this.codigo_postal = codigo_postal;
+    }
+
+    public Long getId_usaurio() {
+        return id_usaurio;
+    }
+
+    public void setId_usaurio(Long id_usaurio) {
+        this.id_usaurio = id_usaurio;
     }
 
 }

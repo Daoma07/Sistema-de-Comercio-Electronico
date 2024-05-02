@@ -1,4 +1,4 @@
-package com.mycompany.utilities.dto.generos;
+package com.mycompany.utilities.dto.enums;
 
 import java.io.Serializable;
 
