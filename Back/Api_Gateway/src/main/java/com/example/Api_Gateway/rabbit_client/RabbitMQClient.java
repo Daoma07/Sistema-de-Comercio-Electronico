@@ -12,8 +12,11 @@ public class RabbitMQClient {
     @Value("${rabbitmq.exchange.name}")
     private String exchange;
 
-    @Value("${rabbitmq.routing.key}")
-    private String routingKey;
+    @Value("${rabbitmq.usuario.routing.key}")
+    private String usuarioRoutingKey;
+
+    @Value("${rabbitmq.inventario.routing.key}")
+    private String inventarioRoutingKey;
 
     private RabbitTemplate rabbitTemplate;
 
@@ -21,11 +24,23 @@ public class RabbitMQClient {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public ResponseFormat sendMessage(RequestFormat request) {
+    public ResponseFormat sendMessageUsuario(RequestFormat request) {
         try {
             return (ResponseFormat) rabbitTemplate.convertSendAndReceive(
                     exchange,
-                    routingKey,
+                    usuarioRoutingKey,
+                    request);
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public ResponseFormat sendMessageInventario(RequestFormat request) {
+        try {
+            return (ResponseFormat) rabbitTemplate.convertSendAndReceive(
+                    exchange,
+                    inventarioRoutingKey,
                     request);
 
         } catch (Exception e) {

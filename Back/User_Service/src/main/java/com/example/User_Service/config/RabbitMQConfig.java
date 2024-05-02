@@ -47,5 +47,4 @@ public class RabbitMQConfig {
                 "com.mycompany.utilities.response.*"));
         return converter;
     }
-
 }

@@ -1,0 +1,73 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.example.Inventario_Service.manager;
+
+import com.example.Inventario_Service.repository.ProductoRepository;
+import com.example.Inventario_Service.service.impl.ProductoServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mycompany.utilities.dto.CredencialDto;
+import com.mycompany.utilities.dto.ProductoDto;
+import com.mycompany.utilities.dto.UsuarioDto;
+import com.mycompany.utilities.request.RequestFormat;
+import com.mycompany.utilities.response.ResponseFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+
+/**
+ *
+ * @author Daniel
+ */
+@Component
+public class ActionRouter {
+
+    private final Map<String, Function<String, ResponseFormat>> actionMap;
+
+//    @Autowired
+//    private CredencialServiceImpl credencialServiceImpl;
+//
+//    @Autowired
+//    private UsuarioServiceImpl usuarioServiceImpl;
+    @Autowired
+    private ProductoServiceImpl productoServiceImpl;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    public ActionRouter() {
+        actionMap = new HashMap<>();
+        actionMap.put("create-product", this::createProduct);
+    }
+
+    public ResponseFormat route(RequestFormat requestFormat) {
+        String method = requestFormat.getMethod();
+        String content = requestFormat.getContent();
+        return actionMap.getOrDefault(method, this::defaultAction).apply(content);
+    }
+
+    private ResponseFormat createProduct(String content) {
+        try {
+            ProductoDto productoDto = objectMapper.readValue(content, ProductoDto.class);
+            productoDto = productoServiceImpl.createProduct(productoDto);
+            return new ResponseFormat(objectMapper.writeValueAsString(productoDto),
+                    HttpStatus.OK.value());
+        } catch (Exception ex) {
+            Logger.getLogger(ActionRouter.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseFormat("No se pudo registrar el producto",
+                    HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
+    }
+
+    private ResponseFormat defaultAction(String payload) {
+        return new ResponseFormat("Acción no reconocida",
+                HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
+}

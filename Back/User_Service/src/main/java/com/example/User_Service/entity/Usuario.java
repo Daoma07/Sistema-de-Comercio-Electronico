@@ -1,7 +1,7 @@
 package com.example.User_Service.entity;
 
-import com.mycompany.utilities.dto.generos.Genero;
-import com.mycompany.utilities.dto.tipo_usuarios.TipoUsuario;
+import com.mycompany.utilities.dto.enums.Genero;
+import com.mycompany.utilities.dto.enums.TipoUsuario;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

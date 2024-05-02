@@ -1,4 +1,4 @@
-package com.example.Api_Gateway.config;
+package com.example.Inventario_Service.config;
 
 import java.util.List;
 import org.springframework.amqp.core.Binding;
@@ -13,20 +13,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
+    @Value("${rabbitmq.queue.name}")
+    private String queue;
+
     @Value("${rabbitmq.exchange.name}")
     private String exchange;
 
-    @Value("${rabbitmq.usuario.queue.name}")
-    private String usuarioQueue;
+    @Value("${rabbitmq.routing.key}")
+    private String routingKey;
 
-    @Value("${rabbitmq.usuario.routing.key}")
-    private String usuarioRoutingKey;
-
-    @Value("${rabbitmq.inventario.queue.name}")
-    private String inventarioQueue;
-
-    @Value("${rabbitmq.inventario.routing.key}")
-    private String inventarioRoutingKey;
+    @Bean
+    public Queue queue() {
+        return new Queue(queue);
+    }
 
     @Bean
     public TopicExchange exchange() {
@@ -34,27 +33,10 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Queue usuarioQueue() {
-        return new Queue(usuarioQueue);
-    }
-
-    @Bean
-    public Queue inventarioQueue() {
-        return new Queue(inventarioQueue);
-    }
-
-    @Bean
-    public Binding usuarioBinding() {
-        return BindingBuilder.bind(usuarioQueue())
+    public Binding binding() {
+        return BindingBuilder.bind(queue())
                 .to(exchange())
-                .with(usuarioRoutingKey);
-    }
-
-    @Bean
-    public Binding inventarioBinding() {
-        return BindingBuilder.bind(inventarioQueue())
-                .to(exchange())
-                .with(inventarioRoutingKey);
+                .with(routingKey);
     }
 
     @Bean
