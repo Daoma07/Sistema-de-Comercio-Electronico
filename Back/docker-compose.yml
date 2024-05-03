@@ -1,6 +1,7 @@
-version: '3'
+version: '3.8'
 
 services:
+
   postgres:
     image: postgres:latest
     container_name: postgres-comercio
@@ -34,6 +35,19 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
-  volumes:
-    mysql_data:
-    postgres_data:
+  user_service:
+    build:
+      context: ./User_Service
+    container_name: user_service
+
+  inventario_service:
+    build:
+      context: ./Inventario_Service
+    container_name: inventario_service
+
+  gateway_service:
+    build:
+      context: ./Api_Gateway
+    container_name: api_gateway
+
+
