@@ -10,11 +10,13 @@ import com.example.Inventario_Service.repository.ProductoRepository;
 import com.example.Inventario_Service.service.ProductoService;
 import com.mycompany.utilities.dto.ProductoDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Daniel
  */
+@Service
 public class ProductoServiceImpl implements ProductoService {
 
     @Autowired

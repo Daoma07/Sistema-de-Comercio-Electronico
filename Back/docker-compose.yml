@@ -50,4 +50,9 @@ services:
       context: ./Api_Gateway
     container_name: api_gateway
 
+volumes:
+  postgres_data:
+  mysql_data:
+
+
 
