@@ -6,13 +6,16 @@ package com.example.Inventario_Service.manager;
 
 import com.example.Inventario_Service.repository.ProductoRepository;
 import com.example.Inventario_Service.service.impl.ProductoServiceImpl;
+import com.example.Inventario_Service.service.impl.TallaServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.utilities.dto.CredencialDto;
 import com.mycompany.utilities.dto.ProductoDto;
+import com.mycompany.utilities.dto.TallaDto;
 import com.mycompany.utilities.dto.UsuarioDto;
 import com.mycompany.utilities.request.RequestFormat;
 import com.mycompany.utilities.response.ResponseFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.logging.Level;
@@ -39,11 +42,15 @@ public class ActionRouter {
     private ProductoServiceImpl productoServiceImpl;
 
     @Autowired
+    private TallaServiceImpl tallaServiceImpl;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     public ActionRouter() {
         actionMap = new HashMap<>();
         actionMap.put("create-product", this::createProduct);
+        actionMap.put("read-tallas", this::createProduct);
     }
 
     public ResponseFormat route(RequestFormat requestFormat) {
@@ -61,6 +68,19 @@ public class ActionRouter {
         } catch (Exception ex) {
             Logger.getLogger(ActionRouter.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseFormat("No se pudo registrar el producto",
+                    HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
+    }
+
+    private ResponseFormat readTallas(String content) {
+        try {
+
+            List<TallaDto> tallas = tallaServiceImpl.readAllTalla();
+            return new ResponseFormat(objectMapper.writeValueAsString(tallas),
+                    HttpStatus.OK.value());
+        } catch (Exception ex) {
+            Logger.getLogger(ActionRouter.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseFormat("No se pudo consultar las tallas",
                     HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
     }

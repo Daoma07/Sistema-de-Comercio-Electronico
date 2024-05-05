@@ -13,7 +13,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     }
 
 
-    fetch('http://localhost:8081/api/user/login', {
+    fetch('http://192.168.100.21:8081/api/user/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         .then(response => {
 
             if (response.ok) {
-                return response.json();
+                window.location.href = 'index.html';
 
             } else {
                 throw new Error('Error al iniciar sesión');

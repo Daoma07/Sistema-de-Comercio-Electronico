@@ -9,6 +9,7 @@ import com.mycompany.utilities.request.RequestFormat;
 import com.mycompany.utilities.response.ResponseFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,12 @@ public class GatewayProductoController {
     public ResponseFormat servicioRegister(@RequestBody ProductoDto productoDto) throws JsonProcessingException {
         String jsonusuario = objectMapper.writeValueAsString(productoDto);
         RequestFormat requestFormat = new RequestFormat(jsonusuario, "create-product");
+        return rabbitMQClient.sendMessageInventario(requestFormat);
+    }
+
+    @GetMapping("/readTallas")
+    public ResponseFormat servicioReadTallas() throws JsonProcessingException {
+        RequestFormat requestFormat = new RequestFormat("", "read-tallas");
         return rabbitMQClient.sendMessageInventario(requestFormat);
     }
 

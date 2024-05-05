@@ -56,7 +56,7 @@ submitBtn.addEventListener("click", function () {
     const numero = document.querySelectorAll('input[type="text"]')[7].value;
 
 
-    if (genero == "Hombre") {
+    if (genero === "Hombre") {
         genero = "MASCULINO";
     } else {
         genero = "FEMENINO";
@@ -91,7 +91,7 @@ submitBtn.addEventListener("click", function () {
 
 
     // Enviar los datos a través de una solicitud fetch
-    fetch('http://localhost:8081/api/user/register', {
+    fetch('http://192.168.100.21:8081/api/user/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
