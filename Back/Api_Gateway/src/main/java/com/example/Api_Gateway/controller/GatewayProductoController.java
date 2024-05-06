@@ -49,4 +49,10 @@ public class GatewayProductoController {
         return rabbitMQClient.sendMessageInventario(requestFormat);
     }
 
+    @GetMapping("/readEstilos")
+    public ResponseFormat servicioReadEstilos() throws JsonProcessingException {
+        RequestFormat requestFormat = new RequestFormat("", "read-estilos");
+        return rabbitMQClient.sendMessageInventario(requestFormat);
+    }
+
 }

@@ -6,11 +6,13 @@ package com.example.Inventario_Service.manager;
 
 import com.example.Inventario_Service.repository.ProductoRepository;
 import com.example.Inventario_Service.service.impl.CategoriaServiceImp;
+import com.example.Inventario_Service.service.impl.EstiloServiceImpl;
 import com.example.Inventario_Service.service.impl.ProductoServiceImpl;
 import com.example.Inventario_Service.service.impl.TallaServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.utilities.dto.CategoriaDto;
 import com.mycompany.utilities.dto.CredencialDto;
+import com.mycompany.utilities.dto.EstiloDto;
 import com.mycompany.utilities.dto.ProductoDto;
 import com.mycompany.utilities.dto.TallaDto;
 import com.mycompany.utilities.dto.UsuarioDto;
@@ -50,6 +52,9 @@ public class ActionRouter {
     private CategoriaServiceImp categoriaServiceImp;
 
     @Autowired
+    private EstiloServiceImpl estiloServiceImpl;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     public ActionRouter() {
@@ -57,6 +62,7 @@ public class ActionRouter {
         actionMap.put("create-product", this::createProduct);
         actionMap.put("read-tallas", this::readTallas);
         actionMap.put("read-categorias", this::readCategorias);
+        actionMap.put("read-estilos", this::readEstilos);
     }
 
     public ResponseFormat route(RequestFormat requestFormat) {
@@ -100,6 +106,19 @@ public class ActionRouter {
         } catch (Exception ex) {
             Logger.getLogger(ActionRouter.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseFormat("No se pudo consultar las categorias",
+                    HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
+    }
+
+    private ResponseFormat readEstilos(String content) {
+        try {
+
+            List<EstiloDto> estiloDtos = estiloServiceImpl.readAllEstilo();
+            return new ResponseFormat(objectMapper.writeValueAsString(estiloDtos),
+                    HttpStatus.OK.value());
+        } catch (Exception ex) {
+            Logger.getLogger(ActionRouter.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseFormat("No se pudo consultar los estilos",
                     HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
     }

@@ -133,26 +133,30 @@ https://templatemo.com/tm-571-hexashop
                     <label for="product-image-input"></label>
                 </div>
                 <div class="product-details">
-                    <input type="text" placeholder="CODIGO DE BARRAS" name="CodigoBarras">
-                    <select>
-                        <option value="">CATEGORIA</option>
+                    <input type="text" placeholder="Codigo de barras" name="CodigoBarras">
+                    <select name="categoria">
+                        <option value="" disabled selected>Categoria</option>
                     </select>
-                    <select>
-                        <option value="">MARCA</option>
+                    <select name="marca">
+                        <option value="" disabled selected>Marca</option>
                     </select>
-                    <select>
-                        <option value="">MATERIAL</option>
-                    </select>
-                    <input type="text" placeholder="NOMBRE" name="Nombre">
-                    <textarea placeholder="DESCRIPCIÓN" rows="4"></textarea>
+                    <input type="text" placeholder="Material" name="material">
+                    <input type="text" placeholder="Nombre" name="Nombre">
+                    <textarea placeholder="Descripción" rows="6" name="descripcion"></textarea>
                     <div class="color-size">
                         <select name="color">
                             <option value="" disabled selected>Colores</option>
                         </select>
+                        <input type="number" placeholder="Precio" name="Precio">
+                    </div>
+                    <div class="color-size">
+                        <select name="estilo">
+                            <option value="" disabled selected>Estilo</option>
+                        </select>
                         <select name="talla">
                             <option value="" disabled selected>Tallas</option>
                         </select>
-                        <input type="text" placeholder="PRECIO" name="Precio">
+
                     </div>
                     <button>GUARDAR</button>
                 </div>
