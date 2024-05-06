@@ -27,7 +27,7 @@ public class TarifaEnvio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_tarifa_envio;
 
-    @Column(name = "desripcion", nullable = false, length = 150)
+    @Column(name = "descripcion", nullable = false, length = 150)
     private String desripcion;
 
     @Column(name = "costo", nullable = false)

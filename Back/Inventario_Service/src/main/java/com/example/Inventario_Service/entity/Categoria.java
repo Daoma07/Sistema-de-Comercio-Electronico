@@ -38,7 +38,7 @@ public class Categoria {
 
     //Recursividad
     @ManyToOne
-    @JoinColumn(name = "categoria_padre_id")
+    @JoinColumn(name = "categoria_padre_id", nullable = false)
     private Categoria categoria_padre;
 
     //Relacion con Producto

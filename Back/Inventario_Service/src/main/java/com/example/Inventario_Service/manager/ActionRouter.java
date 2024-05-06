@@ -50,7 +50,7 @@ public class ActionRouter {
     public ActionRouter() {
         actionMap = new HashMap<>();
         actionMap.put("create-product", this::createProduct);
-        actionMap.put("read-tallas", this::createProduct);
+        actionMap.put("read-tallas", this::readTallas);
     }
 
     public ResponseFormat route(RequestFormat requestFormat) {
