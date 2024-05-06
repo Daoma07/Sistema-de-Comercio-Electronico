@@ -2,6 +2,35 @@ version: '3.8'
 
 services:
 
+  user_service:
+    build:
+      context: ./User_Service
+    container_name: user_service
+    ports:
+      - "8082:8080"
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  inventario_service:
+    build:
+      context: ./Inventario_Service
+    container_name: inventario_service
+    ports:
+      - "8083:8080"
+    depends_on:
+      - mysql
+      - rabbitmq
+
+  gateway_service:
+    build:
+      context: ./Api_Gateway
+    container_name: api_gateway
+    ports:
+      - "8081:8080"
+    depends_on:
+      - rabbitmq
+
   postgres:
     image: postgres:latest
     container_name: postgres-comercio
@@ -35,24 +64,10 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
-  user_service:
-    build:
-      context: ./User_Service
-    container_name: user_service
-
-  inventario_service:
-    build:
-      context: ./Inventario_Service
-    container_name: inventario_service
-
-  gateway_service:
-    build:
-      context: ./Api_Gateway
-    container_name: api_gateway
-
 volumes:
   postgres_data:
   mysql_data:
+  
 
 
 

@@ -12,6 +12,8 @@ import com.mycompany.utilities.dto.TallaDto;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,6 +26,7 @@ public class TallaServiceImpl implements TallaService {
     @Autowired
     private TallaRepository tallaRepository;
 
+	@Transactional
     @Override
     public List<TallaDto> readAllTalla() {
         List<Talla> tallas = tallaRepository.findAll();
