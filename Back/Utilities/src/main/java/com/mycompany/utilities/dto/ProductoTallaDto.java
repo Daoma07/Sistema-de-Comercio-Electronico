@@ -55,4 +55,9 @@ public class ProductoTallaDto {
         this.productoDto = productoDto;
     }
 
+    @Override
+    public String toString() {
+        return "ProductoTallaDto{" + "id_producto_talla=" + id_producto_talla + ", cantidad=" + cantidad + ", tallaDto=" + tallaDto + ", productoDto=" + productoDto + '}';
+    }
+
 }
