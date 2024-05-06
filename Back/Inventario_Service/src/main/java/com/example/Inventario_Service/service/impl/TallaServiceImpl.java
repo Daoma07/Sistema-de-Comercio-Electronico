@@ -26,7 +26,7 @@ public class TallaServiceImpl implements TallaService {
     @Autowired
     private TallaRepository tallaRepository;
 
-	@Transactional
+    @Transactional
     @Override
     public List<TallaDto> readAllTalla() {
         List<Talla> tallas = tallaRepository.findAll();

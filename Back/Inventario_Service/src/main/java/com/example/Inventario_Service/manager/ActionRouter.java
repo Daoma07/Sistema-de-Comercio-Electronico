@@ -5,9 +5,11 @@
 package com.example.Inventario_Service.manager;
 
 import com.example.Inventario_Service.repository.ProductoRepository;
+import com.example.Inventario_Service.service.impl.CategoriaServiceImp;
 import com.example.Inventario_Service.service.impl.ProductoServiceImpl;
 import com.example.Inventario_Service.service.impl.TallaServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mycompany.utilities.dto.CategoriaDto;
 import com.mycompany.utilities.dto.CredencialDto;
 import com.mycompany.utilities.dto.ProductoDto;
 import com.mycompany.utilities.dto.TallaDto;
@@ -45,12 +47,16 @@ public class ActionRouter {
     private TallaServiceImpl tallaServiceImpl;
 
     @Autowired
+    private CategoriaServiceImp categoriaServiceImp;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     public ActionRouter() {
         actionMap = new HashMap<>();
         actionMap.put("create-product", this::createProduct);
         actionMap.put("read-tallas", this::readTallas);
+        actionMap.put("read-categorias", this::readCategorias);
     }
 
     public ResponseFormat route(RequestFormat requestFormat) {
@@ -81,6 +87,19 @@ public class ActionRouter {
         } catch (Exception ex) {
             Logger.getLogger(ActionRouter.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseFormat("No se pudo consultar las tallas",
+                    HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
+    }
+
+    private ResponseFormat readCategorias(String content) {
+        try {
+
+            List<CategoriaDto> categoriaDtos = categoriaServiceImp.readAllCategoria();
+            return new ResponseFormat(objectMapper.writeValueAsString(categoriaDtos),
+                    HttpStatus.OK.value());
+        } catch (Exception ex) {
+            Logger.getLogger(ActionRouter.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseFormat("No se pudo consultar las categorias",
                     HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
     }

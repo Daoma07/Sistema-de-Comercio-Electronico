@@ -43,4 +43,10 @@ public class GatewayProductoController {
         return rabbitMQClient.sendMessageInventario(requestFormat);
     }
 
+    @GetMapping("/readCategorias")
+    public ResponseFormat servicioReadCategorias() throws JsonProcessingException {
+        RequestFormat requestFormat = new RequestFormat("", "read-categorias");
+        return rabbitMQClient.sendMessageInventario(requestFormat);
+    }
+
 }

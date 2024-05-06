@@ -1,3 +1,4 @@
+//peticiones para consultar las  tallas
 fetch('http://192.168.100.21:8081/api/product/readTallas', {
     method: 'GET',
     headers: {
@@ -8,12 +9,15 @@ fetch('http://192.168.100.21:8081/api/product/readTallas', {
     .then(data => {
         const content = JSON.parse(data.content);
         const tallas = content.map(item => ({
+            id_talla: item.id_talla,
             talla_us: item.talla_us,
             talla_mx: item.talla_mx
         }));
+
+
         const colores = ['Marrón', 'Negro', 'Blanco', 'Beige', 'Gris', 'Azul', 'Rojo', 'Verde', 'Amarillo', 'Naranja'];
 
-        function agregarOpciones(select, opciones) {
+        function agregarOpcionesTalla(select, opciones) {
             opciones.forEach(opcion => {
                 const option = document.createElement('option');
                 option.value = opcion.id_talla;
@@ -33,7 +37,7 @@ fetch('http://192.168.100.21:8081/api/product/readTallas', {
 
         const tallaSelect = document.querySelector('select[name="talla"]');
         const colorSelect = document.querySelector('select[name="color"]');
-        agregarOpciones(tallaSelect, tallas);
+        agregarOpcionesTalla(tallaSelect, tallas);
         agregarColores(colorSelect, colores);
     })
     .catch(error => {
