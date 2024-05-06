@@ -167,4 +167,9 @@ public class ProductoDto {
         this.id_pedidos_productos = id_pedidos_productos;
     }
 
+    @Override
+    public String toString() {
+        return "ProductoDto{" + "id_producto=" + id_producto + ", nombre=" + nombre + ", descrpcion=" + descrpcion + ", marca=" + marca + ", material=" + material + ", color=" + color + ", codigo=" + codigo + ", precio=" + precio + ", categoriaDto=" + categoriaDto + ", imagenesDtos=" + imagenesDtos + ", estiloDto=" + estiloDto + ", id_productos_tallas=" + id_productos_tallas + ", id_carritos=" + id_carritos + ", id_pedidos_productos=" + id_pedidos_productos + '}';
+    }
+
 }

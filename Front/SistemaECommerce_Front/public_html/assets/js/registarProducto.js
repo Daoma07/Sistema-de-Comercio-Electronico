@@ -219,10 +219,10 @@ function guardarProducto() {
 
     const colorSelect = document.getElementsByName('color');
 
-    const categoriaSelect = document.getElementsByName('categoria');
+    const categoriaSelect = document.querySelector('select[name="categoria"]');
     const categoriaJson = categoriaSelect.value;
 
-    const estiloSelect = document.getElementsByName('estilo');
+    const estiloSelect = document.querySelector('select[name="estilo"]');
     const estiloJson = estiloSelect.value;
 
 
@@ -273,11 +273,12 @@ function guardarProducto() {
             return response.json();
         })
         .then(data => {
+
             console.log('Producto guardado exitosamente:', data);
-            // Aquí podrías mostrar un mensaje de éxito o redirigir a otra página
+
         })
         .catch(error => {
             console.error('Error:', error);
-            // Aquí podrías mostrar un mensaje de error
+
         });
 }
