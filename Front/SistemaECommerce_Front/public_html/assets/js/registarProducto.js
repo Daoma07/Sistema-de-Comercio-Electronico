@@ -69,6 +69,41 @@ fetch('http://192.168.100.21:8081/api/product/readCategorias', {
         console.error('Error al enviar los datos:', error);
     });
 
+//peticiones para consultar los estilo
+fetch('http://192.168.100.21:8081/api/product/readEstilos', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+    .then(response => response.json())
+    .then(data => {
+        const content = JSON.parse(data.content);
+        const estilos = content.map(item => ({
+            id_estilo: item.id_estilo,
+            nombre: item.nombre,
+            id_productos: item.id_productos
+        }));
+
+        function agregarOpcionesEstilo(select, opciones) {
+            opciones.forEach(opcion => {
+                const option = document.createElement('option');
+                option.value = JSON.stringify(opcion);
+                option.textContent = opcion.nombre;
+                select.appendChild(option);
+            });
+        }
+
+        const estiloSelect = document.querySelector('select[name="estilo"]');
+        agregarOpcionesEstilo(estiloSelect, estilos);
+
+    })
+    .catch(error => {
+        alert(error);
+        console.error('Error al enviar los datos:', error);
+    });
+
+
 
 
 // llenar campos de colores
@@ -96,4 +131,153 @@ function agregarCampos(select, opciones) {
     });
 }
 
+//Mostrar imagen
+function mostrarImagen() {
 
+    const input = document.getElementById('product-image-input');
+    const img = document.getElementById('product-image');
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        img.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+}
+// Lista para almacenar productos
+let listaProductos = [];
+function agregarProducto() {
+    const tallaSelect = document.getElementById('talla-select');
+    const cantidadInput = document.getElementById('cantidad-input');
+
+    const tallaJson = tallaSelect.value;
+    const talla = JSON.parse(tallaJson);
+    const cantidad = parseInt(cantidadInput.value);
+
+    if (talla && !isNaN(cantidad)) {
+        // Verificar si la talla ya está en la lista
+        const productoExistente = listaProductos.find(producto => {
+            return producto.tallaDto.id_talla === talla.id_talla;
+        });
+
+        if (productoExistente) {
+            if (productoExistente.cantidad + cantidad >= 0) {
+                productoExistente.cantidad += cantidad;
+                if (productoExistente.cantidad == 0) {
+                    const index = listaProductos.findIndex(producto => producto === productoExistente);
+                    if (index !== -1) {
+                        listaProductos.splice(index, 1);
+                    }
+                }
+
+            } else {
+                alert("Especifica una cantidad válida.");
+            }
+        } else {
+            // Si no está en la lista, agregar un nuevo producto
+            if (cantidad >= 0) {
+                const producto = {
+                    id_producto_talla: null,
+                    cantidad: cantidad,
+                    tallaDto: talla,
+                    productoDto: null
+                };
+
+                listaProductos.push(producto);
+            } else {
+                alert("Especifica una cantidad válida.");
+            }
+        }
+
+        mostrarListaProductos();
+    } else {
+        alert("Por favor, selecciona una talla o ingrese una cantidad valida");
+    }
+}
+
+
+function mostrarListaProductos() {
+    const listaDiv = document.getElementById('lista-productos');
+    listaDiv.innerHTML = '';
+
+    listaProductos.forEach((producto, index) => {
+
+        const productoDiv = document.createElement('div');
+        productoDiv.textContent = `Talla: ${producto.tallaDto.talla_mx}, Cantidad: ${producto.cantidad}`;
+        listaDiv.appendChild(productoDiv);
+
+    });
+}
+
+
+
+
+//Guardar el producto 
+function guardarProducto() {
+
+    const colorSelect = document.getElementsByName('color');
+
+    const categoriaSelect = document.getElementsByName('categoria');
+    const categoriaJson = categoriaSelect.value;
+
+    const estiloSelect = document.getElementsByName('estilo');
+    const estiloJson = estiloSelect.value;
+
+
+    // Recolectar los datos del formulario
+    const nombre = document.getElementsByName('Nombre')[0].value;
+    const descripcion = document.getElementsByName('descripcion')[0].value;
+    const marca = document.getElementsByName('marca')[0].value;
+    const material = document.getElementsByName('material')[0].value;
+    const color = colorSelect.value;
+    const codigo = document.getElementsByName('CodigoBarras')[0].value;
+    const precio = parseFloat(document.getElementsByName('Precio')[0].value);
+    const categoria = JSON.parse(categoriaJson);
+    const estilo = JSON.parse(estiloJson);
+    const talla = document.getElementsByName('talla')[0].value;
+    const cantidad = parseInt(document.getElementsByName('Cantidad')[0].value);
+
+    // Crear el objeto de producto
+    const productoDto = {
+        nombre: nombre,
+        descripcion: descripcion,
+        marca: marca,
+        material: material,
+        color: color,
+        codigo: codigo,
+        precio: precio,
+        categoriaDto: categoria,
+        estiloDto: estilo
+    };
+
+    // Crear el objeto de producto talla
+    const productoTallaDto = listaProductos;
+
+    // Enviar los datos al servidor
+    fetch('http://192.168.100.21:8081/api/product/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            productoDto: productoDto,
+            productoTallaDto: productoTallaDto
+        }),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al guardar el producto');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Producto guardado exitosamente:', data);
+            // Aquí podrías mostrar un mensaje de éxito o redirigir a otra página
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Aquí podrías mostrar un mensaje de error
+        });
+}

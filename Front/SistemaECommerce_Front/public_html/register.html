@@ -127,11 +127,18 @@ https://templatemo.com/tm-571-hexashop
 
         <main>
             <section class="product-form">
-                <div class="product-image">
-                    <img src="placeholder.jpg" alt="Imagen del producto">
-                    <input type="file" id="product-image-input" accept="image/*" name="ImagenProducto">
-                    <label for="product-image-input"></label>
+
+                <div class="product-container">
+                    <div class="product-image">
+                        <img id="product-image" src="placeholder.jpg" alt="Imagen del producto">
+                        <input type="file" id="product-image-input" accept="image/*" name="ImagenProducto"
+                            onchange="mostrarImagen()">
+                        <label for="product-image-input"></label>
+                    </div>
+                    <div id="lista-productos"></div>
                 </div>
+
+
                 <div class="product-details">
                     <input type="text" placeholder="Codigo de barras" name="CodigoBarras">
                     <select name="categoria">
@@ -147,17 +154,20 @@ https://templatemo.com/tm-571-hexashop
                         <select name="color">
                             <option value="" disabled selected>Colores</option>
                         </select>
-                        <input type="number" placeholder="Precio" name="Precio">
-                    </div>
-                    <div class="color-size">
                         <select name="estilo">
                             <option value="" disabled selected>Estilo</option>
                         </select>
-                        <select name="talla">
-                            <option value="" disabled selected>Tallas</option>
-                        </select>
-
+                        <input type="number" placeholder="Precio" name="Precio">
                     </div>
+                    <div class="color-size">
+                        <select id="talla-select" name="talla">
+                            <option value="" disabled selected>Tallas</option>
+                            <!-- Opciones de tallas aquí -->
+                        </select>
+                        <input type="number" id="cantidad-input" placeholder="Cantidad" name="Cantidad">
+                        <button onclick="agregarProducto()">Agregar</button>
+                    </div>
+
                     <button>GUARDAR</button>
                 </div>
             </section>
@@ -267,6 +277,7 @@ https://templatemo.com/tm-571-hexashop
             });
 
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
     </body>
 
@@ -314,6 +325,12 @@ https://templatemo.com/tm-571-hexashop
             align-items: flex-start;
         }
 
+        .product-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .product-image {
             border: 1px dashed #ccc;
             width: 300px;
@@ -324,6 +341,13 @@ https://templatemo.com/tm-571-hexashop
             position: relative;
             border-radius: 5px;
             overflow: hidden;
+        }
+
+        #lista-productos {
+            margin-top: 10px;
+
+            width: 100%;
+
         }
 
         .product-image img {
@@ -350,7 +374,8 @@ https://templatemo.com/tm-571-hexashop
         .product-details input,
         .product-details select,
         .product-details textarea {
-            margin-bottom: 10px;
+
+            margin: 5px;
             padding: 8px 12px;
             border-radius: 5px;
             border: 1px solid #ccc;

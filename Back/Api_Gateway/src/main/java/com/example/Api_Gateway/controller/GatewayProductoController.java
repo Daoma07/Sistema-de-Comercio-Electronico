@@ -4,9 +4,11 @@ import com.example.Api_Gateway.rabbit_client.RabbitMQClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.utilities.dto.ProductoDto;
+import com.mycompany.utilities.dto.ProductoTallaDto;
 import com.mycompany.utilities.dto.UsuarioDto;
 import com.mycompany.utilities.request.RequestFormat;
 import com.mycompany.utilities.response.ResponseFormat;
+import javax.swing.JOptionPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +33,10 @@ public class GatewayProductoController {
     }
 
     @PostMapping("/register")
-    public ResponseFormat servicioRegister(@RequestBody ProductoDto productoDto) throws JsonProcessingException {
+    public ResponseFormat servicioRegister(@RequestBody ProductoDto productoDto, @RequestBody ProductoTallaDto productoTallaDto) throws JsonProcessingException {
         String jsonusuario = objectMapper.writeValueAsString(productoDto);
         RequestFormat requestFormat = new RequestFormat(jsonusuario, "create-product");
+        JOptionPane.showMessageDialog(null, productoTallaDto.toString());
         return rabbitMQClient.sendMessageInventario(requestFormat);
     }
 
