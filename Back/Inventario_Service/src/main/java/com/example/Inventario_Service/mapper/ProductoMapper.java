@@ -6,21 +6,25 @@ import com.example.Inventario_Service.entity.Producto;
 import com.example.Inventario_Service.entity.ProductoTalla;
 import com.example.Inventario_Service.repository.CarritoRepository;
 import com.example.Inventario_Service.repository.PedidoProductoRepository;
-import com.example.Inventario_Service.repository.ProductoTallaRepository;
 import com.mycompany.utilities.dto.ProductoDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductoMapper {
 
     @Autowired
-    private static CarritoRepository carritoRepository;
+    private CarritoRepository carritoRepository;
 
     @Autowired
-    private static PedidoProductoRepository pedidoProductoRepository;
+    private PedidoProductoRepository pedidoProductoRepository;
 
-    public static ProductoDto mapperToProductoDto(Producto producto) {
+    @Autowired
+    private CategoriaMapper categoriaMapper;
+
+    public ProductoDto mapperToProductoDto(Producto producto) {
 
         List<Long> id_productos_tallas = producto.getTallas().stream().
                 map(ProductoTalla::getId_producto_talla).collect(Collectors.toList());
@@ -39,7 +43,7 @@ public class ProductoMapper {
                 producto.getColor(),
                 producto.getCodigo(),
                 producto.getPrecio(),
-                CategoriaMapper.mapperToCategoriaDto(producto.getCategoria()),
+                categoriaMapper.mapperToCategoriaDto(producto.getCategoria()),
                 ImagenMapper.mapperListToImagenDto(producto.getImagenes()),
                 EstiloMapper.mapperToEstiloDto(producto.getEstilo()),
                 ProductoTallaMapper.mapperListToProductoTallaDto(producto.getTallas()),
@@ -49,7 +53,7 @@ public class ProductoMapper {
 
     }
 
-    public static Producto mapperToProducto(ProductoDto productoDto) {
+    public Producto mapperToProducto(ProductoDto productoDto) {
         return new Producto(productoDto.getId_producto(),
                 productoDto.getNombre(),
                 productoDto.getDescripcion(),
@@ -58,7 +62,7 @@ public class ProductoMapper {
                 productoDto.getColor(),
                 productoDto.getCodigo(),
                 productoDto.getPrecio(),
-                CategoriaMapper.mapperToCategoria(productoDto.getCategoriaDto()),
+                categoriaMapper.mapperToCategoria(productoDto.getCategoriaDto()),
                 ImagenMapper.mapperListToImagen(productoDto.getImagenesDtos()),
                 EstiloMapper.mapperToEstilo(productoDto.getEstiloDto()),
                 ProductoTallaMapper.mapperListToProductoTalla(productoDto.getProductoTallaDtos()),

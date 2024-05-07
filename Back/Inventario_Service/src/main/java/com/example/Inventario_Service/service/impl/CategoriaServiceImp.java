@@ -17,13 +17,16 @@ public class CategoriaServiceImp implements CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
+    @Autowired
+    private CategoriaMapper categoriaMapper;
+
     @Transactional
     @Override
     public List<CategoriaDto> readAllCategoria() {
         List<Categoria> categorias = categoriaRepository.findAll();
         List<CategoriaDto> categoriaDtos = new ArrayList<>();
         for (Categoria categoria : categorias) {
-            categoriaDtos.add(CategoriaMapper.mapperToCategoriaDto(categoria));
+            categoriaDtos.add(categoriaMapper.mapperToCategoriaDto(categoria));
         }
         return categoriaDtos;
     }

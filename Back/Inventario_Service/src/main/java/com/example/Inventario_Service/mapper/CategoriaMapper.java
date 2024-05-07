@@ -8,23 +8,25 @@ import com.mycompany.utilities.dto.CategoriaDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CategoriaMapper {
 
-    private static CategoriaRepository categoriaRepository;
-    private static ProductoRepository productoRepository;
+    private CategoriaRepository categoriaRepository;
+    private ProductoRepository productoRepository;
 
     @Autowired
     public void setCategoriaRepository(CategoriaRepository categoriaRepository) {
-        CategoriaMapper.categoriaRepository = categoriaRepository;
+        this.categoriaRepository = categoriaRepository;
     }
 
     @Autowired
     public void setProductoRepository(ProductoRepository productoRepository) {
-        CategoriaMapper.productoRepository = productoRepository;
+        this.productoRepository = productoRepository;
     }
 
-    public static CategoriaDto mapperToCategoriaDto(Categoria categoria) {
+    public CategoriaDto mapperToCategoriaDto(Categoria categoria) {
         List<Long> id_categorias_hijas = categoria.getCategorias_hijas().stream()
                 .map(Categoria::getId_categoria)
                 .collect(Collectors.toList());
@@ -45,12 +47,11 @@ public class CategoriaMapper {
         );
     }
 
-    public static Categoria mapperToCategoria(CategoriaDto categoriaDto) {
+    public Categoria mapperToCategoria(CategoriaDto categoriaDto) {
         return new Categoria(categoriaDto.getId_categoria(),
                 categoriaDto.getNombre(),
                 categoriaRepository.findAllById(categoriaDto.getId_categorias_hijas()),
                 categoriaRepository.findById(categoriaDto.getId_categoria_padre()).orElse(null),
                 productoRepository.findAllById(categoriaDto.getId_productos()));
     }
-
 }
