@@ -11,11 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class CategoriaMapper {
 
-    @Autowired
     private static CategoriaRepository categoriaRepository;
+    private static ProductoRepository productoRepository;
 
     @Autowired
-    private static ProductoRepository productoRepository;
+    public void setCategoriaRepository(CategoriaRepository categoriaRepository) {
+        CategoriaMapper.categoriaRepository = categoriaRepository;
+    }
+
+    @Autowired
+    public void setProductoRepository(ProductoRepository productoRepository) {
+        CategoriaMapper.productoRepository = productoRepository;
+    }
 
     public static CategoriaDto mapperToCategoriaDto(Categoria categoria) {
         List<Long> id_categorias_hijas = categoria.getCategorias_hijas().stream()

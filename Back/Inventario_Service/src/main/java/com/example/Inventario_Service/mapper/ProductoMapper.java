@@ -15,9 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ProductoMapper {
 
     @Autowired
-    private static ProductoTallaRepository productoTallaRepository;
-
-    @Autowired
     private static CarritoRepository carritoRepository;
 
     @Autowired
