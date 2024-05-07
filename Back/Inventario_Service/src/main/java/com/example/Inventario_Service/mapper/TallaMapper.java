@@ -29,14 +29,16 @@ public class TallaMapper {
 
     public Talla mapperToTalla(TallaDto tallaDto) {
 
-        if (tallaDto.getId_productos_tallas().isEmpty()) {
-            return new Talla(tallaDto.getId_talla(),
+        if (tallaDto.getId_productos_tallas() == null || tallaDto.getId_productos_tallas().isEmpty()) {
+            return new Talla(
+                    tallaDto.getId_talla(),
                     tallaDto.getTalla_us(),
                     tallaDto.getTalla_mx(),
-                    null);
+                    null
+            );
         }
-
-        return new Talla(tallaDto.getId_talla(),
+        return new Talla(
+                tallaDto.getId_talla(),
                 tallaDto.getTalla_us(),
                 tallaDto.getTalla_mx(),
                 productoTallaRepository.findAllById(tallaDto.getId_productos_tallas())
