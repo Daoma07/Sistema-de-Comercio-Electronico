@@ -10,5 +10,14 @@ package com.mycompany.utilities.dto.enums;
  * @author HP
  */
 public enum ColorEnum {
-    BLANCO
+    Marrón,
+    Negro,
+    Blanco,
+    Beige,
+    Gris,
+    Azul,
+    Rojo,
+    Verde,
+    Amarillo,
+    Naranja
 }

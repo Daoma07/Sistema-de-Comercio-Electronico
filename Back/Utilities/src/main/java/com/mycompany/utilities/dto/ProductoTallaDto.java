@@ -5,22 +5,22 @@ public class ProductoTallaDto {
     private Long id_producto_talla;
     private int cantidad;
     private TallaDto tallaDto;
-    private ProductoDto productoDto;
+    private Long id_producto;
 
     public ProductoTallaDto() {
     }
 
-    public ProductoTallaDto(int cantidad, TallaDto tallaDto, ProductoDto productoDto) {
+    public ProductoTallaDto(int cantidad, TallaDto tallaDto, Long id_producto) {
         this.cantidad = cantidad;
         this.tallaDto = tallaDto;
-        this.productoDto = productoDto;
+        this.id_producto = id_producto;
     }
 
-    public ProductoTallaDto(Long id_producto_talla, int cantidad, TallaDto tallaDto, ProductoDto productoDto) {
+    public ProductoTallaDto(Long id_producto_talla, int cantidad, TallaDto tallaDto, Long id_producto) {
         this.id_producto_talla = id_producto_talla;
         this.cantidad = cantidad;
         this.tallaDto = tallaDto;
-        this.productoDto = productoDto;
+        this.id_producto = id_producto;
     }
 
     public Long getId_producto_talla() {
@@ -47,17 +47,12 @@ public class ProductoTallaDto {
         this.tallaDto = tallaDto;
     }
 
-    public ProductoDto getProductoDto() {
-        return productoDto;
+    public Long getId_producto() {
+        return id_producto;
     }
 
-    public void setProductoDto(ProductoDto productoDto) {
-        this.productoDto = productoDto;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductoTallaDto{" + "id_producto_talla=" + id_producto_talla + ", cantidad=" + cantidad + ", tallaDto=" + tallaDto + ", productoDto=" + productoDto + '}';
+    public void setId_producto(Long id_producto) {
+        this.id_producto = id_producto;
     }
 
 }

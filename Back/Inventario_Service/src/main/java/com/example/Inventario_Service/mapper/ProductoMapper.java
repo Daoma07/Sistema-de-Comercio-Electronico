@@ -13,27 +13,27 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ProductoMapper {
-
+    
     @Autowired
     private static ProductoTallaRepository productoTallaRepository;
-
+    
     @Autowired
     private static CarritoRepository carritoRepository;
-
+    
     @Autowired
     private static PedidoProductoRepository pedidoProductoRepository;
-
+    
     public static ProductoDto mapperToProductoDto(Producto producto) {
-
+        
         List<Long> id_productos_tallas = producto.getTallas().stream().
                 map(ProductoTalla::getId_producto_talla).collect(Collectors.toList());
-
+        
         List<Long> id_carritos = producto.getCarritos().stream().
                 map(Carrito::getId_carrito).collect(Collectors.toList());
-
+        
         List<Long> id_pedidos_productos = producto.getPedidos().stream().
                 map(PedidoProducto::getId_pedido_producto).collect(Collectors.toList());
-
+        
         return new ProductoDto(producto.getId_producto(),
                 producto.getNombre(),
                 producto.getDescrpcion(),
@@ -45,13 +45,13 @@ public class ProductoMapper {
                 CategoriaMapper.mapperToCategoriaDto(producto.getCategoria()),
                 ImagenMapper.mapperListToImagenDto(producto.getImagenes()),
                 EstiloMapper.mapperToEstiloDto(producto.getEstilo()),
-                id_productos_tallas,
+                ProductoTallaMapper.mapperListToProductoTallaDto(producto.getTallas()),
                 id_carritos,
                 id_pedidos_productos
         );
-
+        
     }
-
+    
     public static Producto mapperToProducto(ProductoDto productoDto) {
         return new Producto(productoDto.getId_producto(),
                 productoDto.getNombre(),
@@ -64,7 +64,7 @@ public class ProductoMapper {
                 CategoriaMapper.mapperToCategoria(productoDto.getCategoriaDto()),
                 ImagenMapper.mapperListToImagen(productoDto.getImagenesDtos()),
                 EstiloMapper.mapperToEstilo(productoDto.getEstiloDto()),
-                productoTallaRepository.findAllById(productoDto.getId_productos_tallas()),
+                ProductoTallaMapper.mapperListToProductoTalla(productoDto.getProductoTallaDtos()),
                 carritoRepository.findAllById(productoDto.getId_carritos()),
                 pedidoProductoRepository.findAllById(productoDto.getId_pedidos_productos()));
     }

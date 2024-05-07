@@ -17,14 +17,14 @@ public class ProductoDto {
     private CategoriaDto categoriaDto;
     private List<ImagenDto> imagenesDtos;
     private EstiloDto estiloDto;
-    private List<Long> id_productos_tallas;
+    private List<ProductoTallaDto> productoTallaDtos;
     private List<Long> id_carritos;
     private List<Long> id_pedidos_productos;
 
     public ProductoDto() {
     }
 
-    public ProductoDto(String nombre, String descrpcion, String marca, MaterialEnum material, ColorEnum color, String codigo, float precio, CategoriaDto categoriaDto, List<ImagenDto> imagenesDtos, EstiloDto estiloDto, List<Long> id_productos_tallas) {
+    public ProductoDto(String nombre, String descrpcion, String marca, MaterialEnum material, ColorEnum color, String codigo, float precio, CategoriaDto categoriaDto, List<ImagenDto> imagenesDtos, EstiloDto estiloDto, List<ProductoTallaDto> productoTallaDtos, List<Long> id_carritos, List<Long> id_pedidos_productos) {
         this.nombre = nombre;
         this.descrpcion = descrpcion;
         this.marca = marca;
@@ -35,10 +35,12 @@ public class ProductoDto {
         this.categoriaDto = categoriaDto;
         this.imagenesDtos = imagenesDtos;
         this.estiloDto = estiloDto;
-        this.id_productos_tallas = id_productos_tallas;
+        this.productoTallaDtos = productoTallaDtos;
+        this.id_carritos = id_carritos;
+        this.id_pedidos_productos = id_pedidos_productos;
     }
 
-    public ProductoDto(Long id_producto, String nombre, String descrpcion, String marca, MaterialEnum material, ColorEnum color, String codigo, float precio, CategoriaDto categoriaDto, List<ImagenDto> imagenesDtos, EstiloDto estiloDto, List<Long> id_productos_tallas, List<Long> id_carritos, List<Long> id_pedidos_productos) {
+    public ProductoDto(Long id_producto, String nombre, String descrpcion, String marca, MaterialEnum material, ColorEnum color, String codigo, float precio, CategoriaDto categoriaDto, List<ImagenDto> imagenesDtos, EstiloDto estiloDto, List<ProductoTallaDto> productoTallaDtos, List<Long> id_carritos, List<Long> id_pedidos_productos) {
         this.id_producto = id_producto;
         this.nombre = nombre;
         this.descrpcion = descrpcion;
@@ -50,7 +52,7 @@ public class ProductoDto {
         this.categoriaDto = categoriaDto;
         this.imagenesDtos = imagenesDtos;
         this.estiloDto = estiloDto;
-        this.id_productos_tallas = id_productos_tallas;
+        this.productoTallaDtos = productoTallaDtos;
         this.id_carritos = id_carritos;
         this.id_pedidos_productos = id_pedidos_productos;
     }
@@ -143,12 +145,12 @@ public class ProductoDto {
         this.estiloDto = estiloDto;
     }
 
-    public List<Long> getId_productos_tallas() {
-        return id_productos_tallas;
+    public List<ProductoTallaDto> getProductoTallaDtos() {
+        return productoTallaDtos;
     }
 
-    public void setId_productos_tallas(List<Long> id_productos_tallas) {
-        this.id_productos_tallas = id_productos_tallas;
+    public void setProductoTallaDtos(List<ProductoTallaDto> productoTallaDtos) {
+        this.productoTallaDtos = productoTallaDtos;
     }
 
     public List<Long> getId_carritos() {
@@ -165,11 +167,6 @@ public class ProductoDto {
 
     public void setId_pedidos_productos(List<Long> id_pedidos_productos) {
         this.id_pedidos_productos = id_pedidos_productos;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductoDto{" + "id_producto=" + id_producto + ", nombre=" + nombre + ", descrpcion=" + descrpcion + ", marca=" + marca + ", material=" + material + ", color=" + color + ", codigo=" + codigo + ", precio=" + precio + ", categoriaDto=" + categoriaDto + ", imagenesDtos=" + imagenesDtos + ", estiloDto=" + estiloDto + ", id_productos_tallas=" + id_productos_tallas + ", id_carritos=" + id_carritos + ", id_pedidos_productos=" + id_pedidos_productos + '}';
     }
 
 }

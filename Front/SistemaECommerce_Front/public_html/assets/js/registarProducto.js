@@ -113,6 +113,13 @@ const colorSelect = document.querySelector('select[name="color"]');
 
 agregarCampos(colorSelect, colores);
 
+// llenar material
+
+const materiales = ['AVESTRUZ'];
+
+const materialSelect = document.querySelector('select[name="material"]');
+
+agregarCampos(materialSelect, materiales);
 
 // llenar campos de marca
 
@@ -217,11 +224,10 @@ function mostrarListaProductos() {
 //Guardar el producto 
 function guardarProducto() {
 
-    const colorSelect = document.getElementsByName('color');
-
+    const colorSelect = document.getElementsByName('color')[0];
+    const materialSelect = document.getElementsByName('material')[0];
     const categoriaSelect = document.querySelector('select[name="categoria"]');
     const categoriaJson = categoriaSelect.value;
-
     const estiloSelect = document.querySelector('select[name="estilo"]');
     const estiloJson = estiloSelect.value;
 
@@ -230,55 +236,87 @@ function guardarProducto() {
     const nombre = document.getElementsByName('Nombre')[0].value;
     const descripcion = document.getElementsByName('descripcion')[0].value;
     const marca = document.getElementsByName('marca')[0].value;
-    const material = document.getElementsByName('material')[0].value;
+    const material = materialSelect.value;
     const color = colorSelect.value;
     const codigo = document.getElementsByName('CodigoBarras')[0].value;
     const precio = parseFloat(document.getElementsByName('Precio')[0].value);
     const categoria = JSON.parse(categoriaJson);
     const estilo = JSON.parse(estiloJson);
-    const talla = document.getElementsByName('talla')[0].value;
-    const cantidad = parseInt(document.getElementsByName('Cantidad')[0].value);
 
-    // Crear el objeto de producto
-    const productoDto = {
-        nombre: nombre,
-        descripcion: descripcion,
-        marca: marca,
-        material: material,
-        color: color,
-        codigo: codigo,
-        precio: precio,
-        categoriaDto: categoria,
-        estiloDto: estilo
-    };
+    const imagenInput = document.getElementById('product-image-input');
+    const imagenFile = imagenInput.files[0];
 
-    // Crear el objeto de producto talla
-    const productoTallaDto = listaProductos;
+    // Función para leer el contenido del archivo de imagen
+    function leerImagen(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                resolve(event.target.result);
+            };
+            reader.onerror = function (error) {
+                reject(error);
+            };
+            reader.readAsArrayBuffer(file);
+        });
+    }
 
-    // Enviar los datos al servidor
-    fetch('http://192.168.100.21:8081/api/product/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            productoDto: productoDto,
-            productoTallaDto: productoTallaDto
-        }),
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al guardar el producto');
-            }
-            return response.json();
-        })
-        .then(data => {
+    // Leer la imagen y crear el objeto de producto una vez que se complete la lectura
+    leerImagen(imagenFile)
+        .then(contenidoImagen => {
+            const imagenDto = {
+                contenido: Array.from(new Uint8Array(contenidoImagen)), // Convertir el ArrayBuffer a un array de bytes
+                id_producto: null
+            };
 
-            console.log('Producto guardado exitosamente:', data);
+            // Crear el objeto de producto
+            const productoDto = {
+                nombre: nombre,
+                descripcion: descripcion,
+                marca: marca,
+                material: material,
+                color: color,
+                codigo: codigo,
+                precio: precio,
+                categoriaDto: categoria,
+                estiloDto: estilo,
+                productoTallaDtos: listaProductos,
+                imagenesDtos: { imagenDto } // Agregar el objeto de imagenDto al productoDto
+            };
 
-        })
-        .catch(error => {
-            console.error('Error:', error);
+
+
+            console.log(productoDto);
+
+
+            // Crear el objeto de producto talla
+
+
+
+            // Enviar los datos al servidor
+            fetch('http://192.168.100.21:8081/api/product/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    productoDto: productoDto
+                }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al guardar el producto');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+
+                    console.log('Producto guardado exitosamente:', data);
+
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+
+                });
 
         });
 }

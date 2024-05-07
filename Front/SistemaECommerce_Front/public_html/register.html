@@ -130,7 +130,7 @@ https://templatemo.com/tm-571-hexashop
 
                 <div class="product-container">
                     <div class="product-image">
-                        <img id="product-image" src="placeholder.jpg" alt="Imagen del producto">
+                        <img id="product-image" alt="Imagen del producto">
                         <input type="file" id="product-image-input" accept="image/*" name="ImagenProducto"
                             onchange="mostrarImagen()">
                         <label for="product-image-input"></label>
@@ -147,7 +147,9 @@ https://templatemo.com/tm-571-hexashop
                     <select name="marca">
                         <option value="" disabled selected>Marca</option>
                     </select>
-                    <input type="text" placeholder="Material" name="material">
+                    <select name="material">
+                        <option value="" disabled selected>Material</option>
+                    </select>
                     <input type="text" placeholder="Nombre" name="Nombre">
                     <textarea placeholder="Descripción" rows="6" name="descripcion"></textarea>
                     <div class="color-size">
