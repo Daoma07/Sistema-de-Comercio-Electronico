@@ -58,4 +58,9 @@ public class TallaDto implements Serializable {
         this.id_productos_tallas = id_productos_tallas;
     }
 
+    @Override
+    public String toString() {
+        return "TallaDto{" + "id_talla=" + id_talla + ", talla_us=" + talla_us + ", talla_mx=" + talla_mx + ", id_productos_tallas=" + id_productos_tallas + '}';
+    }
+
 }

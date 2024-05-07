@@ -47,4 +47,10 @@ public class EstiloDto implements Serializable {
         this.id_productos = id_productos;
     }
 
+    @Override
+    public String toString() {
+        return "EstiloDto{" + "id_estilo=" + id_estilo + ", nombre=" + nombre + ", id_productos=" + id_productos + '}';
+    }
+    
+
 }

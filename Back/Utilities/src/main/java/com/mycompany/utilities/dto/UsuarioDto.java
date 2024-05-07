@@ -127,4 +127,9 @@ public class UsuarioDto implements Serializable {
         this.direcciones = direcciones;
     }
 
+    @Override
+    public String toString() {
+        return "UsuarioDto{" + "id_usuario=" + id_usuario + ", nombres=" + nombres + ", apellido_paterno=" + apellido_paterno + ", apellido_materno=" + apellido_materno + ", telefono=" + telefono + ", fecha_nacimiento=" + fecha_nacimiento + ", genero=" + genero + ", tipo_usuario=" + tipo_usuario + ", credencialDto=" + credencialDto + ", direcciones=" + direcciones + '}';
+    }
+
 }

@@ -248,6 +248,11 @@ function guardarProducto() {
     const imagenInput = document.getElementById('product-image-input');
     const imagenFile = imagenInput.files[0];
 
+    if (!categoria) {
+        alert('Por favor, selecciona una categoría.');
+        return;
+    }
+
     // Función para leer el contenido del archivo de imagen
     function leerImagen(file) {
         return new Promise((resolve, reject) => {

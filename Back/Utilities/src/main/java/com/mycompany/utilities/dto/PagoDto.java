@@ -71,4 +71,10 @@ public class PagoDto implements Serializable {
         this.comprobante = comprobante;
     }
 
+    @Override
+    public String toString() {
+        return "PagoDto{" + "id_pago=" + id_pago + ", tipoPagoEnum=" + tipoPagoEnum + ", estatusEnum=" + estatusEnum + ", fechaHora=" + fechaHora + ", comprobante=" + comprobante + '}';
+    }
+    
+
 }

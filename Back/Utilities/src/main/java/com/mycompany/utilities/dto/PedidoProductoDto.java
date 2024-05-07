@@ -79,4 +79,11 @@ public class PedidoProductoDto implements Serializable {
         this.producto = producto;
     }
 
+    @Override
+    public String toString() {
+        return "PedidoProductoDto{" + "id_pedido_producto=" + id_pedido_producto + ", cantidad=" + cantidad + ", importe=" + importe + ", precioUnidad=" + precioUnidad + ", pedido=" + pedido + ", producto=" + producto + '}';
+    }
+    
+    
+
 }

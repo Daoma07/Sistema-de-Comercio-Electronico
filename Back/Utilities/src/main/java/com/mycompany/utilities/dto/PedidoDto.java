@@ -136,4 +136,9 @@ public class PedidoDto implements Serializable {
         this.pagoDto = pagoDto;
     }
 
+    @Override
+    public String toString() {
+        return "PedidoDto{" + "id_pedido=" + id_pedido + ", fechaHora=" + fechaHora + ", fechaHoraEnvio=" + fechaHoraEnvio + ", fechaEntrega=" + fechaEntrega + ", total=" + total + ", estatusEnum=" + estatusEnum + ", id_usuario=" + id_usuario + ", id_destinatario=" + id_destinatario + ", tarifaEnvioDto=" + tarifaEnvioDto + ", id_pedido_productos=" + id_pedido_productos + ", pagoDto=" + pagoDto + '}';
+    }
+
 }

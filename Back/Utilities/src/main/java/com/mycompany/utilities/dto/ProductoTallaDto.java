@@ -57,4 +57,11 @@ public class ProductoTallaDto implements Serializable {
         this.id_producto = id_producto;
     }
 
+    @Override
+    public String toString() {
+        return "ProductoTallaDto{" + "id_producto_talla=" + id_producto_talla + ", cantidad=" + cantidad + ", tallaDto=" + tallaDto + ", id_producto=" + id_producto + '}';
+    }
+    
+    
+
 }

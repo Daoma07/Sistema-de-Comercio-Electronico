@@ -46,4 +46,10 @@ public class CredencialDto implements Serializable {
         this.contrasenia = contrasenia;
     }
 
+    @Override
+    public String toString() {
+        return "CredencialDto{" + "id_credencial=" + id_credencial + ", correo=" + correo + ", contrasenia=" + contrasenia + '}';
+    }
+
+    
 }

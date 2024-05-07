@@ -79,4 +79,10 @@ public class DestinatarioDto implements Serializable {
         this.direccion = direccion;
     }
 
+    @Override
+    public String toString() {
+        return "DestinatarioDto{" + "id_destinatario=" + id_destinatario + ", nombres=" + nombres + ", apellido_paterno=" + apellido_paterno + ", apellido_materno=" + apellido_materno + ", telefono=" + telefono + ", direccion=" + direccion + '}';
+    }
+
+    
 }

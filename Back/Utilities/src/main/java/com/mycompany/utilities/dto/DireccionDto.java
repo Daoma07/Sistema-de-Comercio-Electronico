@@ -113,4 +113,10 @@ public class DireccionDto implements Serializable {
         this.id_usaurio = id_usaurio;
     }
 
+    @Override
+    public String toString() {
+        return "DireccionDto{" + "id_direccion=" + id_direccion + ", calle=" + calle + ", numero=" + numero + ", colonia=" + colonia + ", ciudad=" + ciudad + ", estado=" + estado + ", codigo_postal=" + codigo_postal + ", id_usaurio=" + id_usaurio + '}';
+    }
+
+    
 }

@@ -69,4 +69,10 @@ public class CategoriaDto implements Serializable {
         this.id_productos = id_productos;
     }
 
+    @Override
+    public String toString() {
+        return "CategoriaDto{" + "id_categoria=" + id_categoria + ", nombre=" + nombre + ", id_categorias_hijas=" + id_categorias_hijas + ", id_categoria_padre=" + id_categoria_padre + ", id_productos=" + id_productos + '}';
+    }
+
+    
 }

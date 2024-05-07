@@ -58,4 +58,9 @@ public class TarifaEnvioDto implements Serializable {
         this.id_pedidosdto = id_pedidosdto;
     }
 
+    @Override
+    public String toString() {
+        return "TarifaEnvioDto{" + "id_tarifa_envio=" + id_tarifa_envio + ", desripcion=" + desripcion + ", costo=" + costo + ", id_pedidosdto=" + id_pedidosdto + '}';
+    }
+
 }

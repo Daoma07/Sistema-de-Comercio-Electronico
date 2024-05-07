@@ -46,4 +46,10 @@ public class ImagenDto implements Serializable {
         this.id_producto = id_producto;
     }
 
+    @Override
+    public String toString() {
+        return "ImagenDto{" + "id_imagen=" + id_imagen + ", contenido=" + contenido + ", id_producto=" + id_producto + '}';
+    }
+
+    
 }

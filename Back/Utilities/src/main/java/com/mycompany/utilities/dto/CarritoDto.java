@@ -79,4 +79,9 @@ public class CarritoDto implements Serializable {
         this.productoDto = productoDto;
     }
 
+    @Override
+    public String toString() {
+        return "CarritoDto{" + "id_carrito=" + id_carrito + ", importe=" + importe + ", precio_unidad=" + precio_unidad + ", cantidad=" + cantidad + ", id_usuario=" + id_usuario + ", productoDto=" + productoDto + '}';
+    }
+
 }
