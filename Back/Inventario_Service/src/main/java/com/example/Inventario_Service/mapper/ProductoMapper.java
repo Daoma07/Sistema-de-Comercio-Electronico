@@ -109,8 +109,8 @@ public class ProductoMapper {
                 imagenMapper.mapperListToImagen(productoDto.getImagenesDtos()),
                 estiloMapper.mapperToEstilo(productoDto.getEstiloDto()),
                 productoTallaMapper.mapperListToProductoTalla(productoDto.getProductoTallaDtos()),
-                null,
-                null);
+                new ArrayList<>(),
+                new ArrayList<>());
     }
 
 }
