@@ -17,13 +17,16 @@ public class EstiloServiceImpl implements EstiloService {
     @Autowired
     private EstiloRepository estiloRepository;
 
+    @Autowired
+    private EstiloMapper estiloMapper;
+
     @Transactional
     @Override
     public List<EstiloDto> readAllEstilo() {
         List<Estilo> estilos = estiloRepository.findAll();
         List<EstiloDto> estiloDtos = new ArrayList<>();
         for (Estilo estilo : estilos) {
-            estiloDtos.add(EstiloMapper.mapperToEstiloDto(estilo));
+            estiloDtos.add(estiloMapper.mapperToEstiloDto(estilo));
         }
         return estiloDtos;
     }

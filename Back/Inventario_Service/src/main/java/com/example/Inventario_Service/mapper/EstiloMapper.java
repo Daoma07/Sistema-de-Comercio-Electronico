@@ -7,13 +7,15 @@ import com.mycompany.utilities.dto.EstiloDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EstiloMapper {
 
     @Autowired
-    private static ProductoRepository productoRepository;
+    private ProductoRepository productoRepository;
 
-    public static EstiloDto mapperToEstiloDto(Estilo estilo) {
+    public EstiloDto mapperToEstiloDto(Estilo estilo) {
         List<Long> id_productos = estilo.getProductos().stream().
                 map(Producto::getId_producto).collect(Collectors.toList());
 
@@ -22,7 +24,7 @@ public class EstiloMapper {
                 id_productos);
     }
 
-    public static Estilo mapperToEstilo(EstiloDto estiloDto) {
+    public Estilo mapperToEstilo(EstiloDto estiloDto) {
         return new Estilo(estiloDto.getId_estilo(),
                 estiloDto.getNombre(),
                 productoRepository.findAllById(estiloDto.getId_productos()));
