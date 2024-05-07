@@ -3,10 +3,10 @@ package com.example.Inventario_Service.mapper;
 import com.example.Inventario_Service.entity.Carrito;
 import com.example.Inventario_Service.entity.PedidoProducto;
 import com.example.Inventario_Service.entity.Producto;
-import com.example.Inventario_Service.entity.ProductoTalla;
 import com.example.Inventario_Service.repository.CarritoRepository;
 import com.example.Inventario_Service.repository.PedidoProductoRepository;
 import com.mycompany.utilities.dto.ProductoDto;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +35,23 @@ public class ProductoMapper {
 
     public ProductoDto mapperToProductoDto(Producto producto) {
 
-        List<Long> id_productos_tallas = producto.getTallas().stream().
-                map(ProductoTalla::getId_producto_talla).collect(Collectors.toList());
+        List<Long> id_carritos = new ArrayList<>();
+        List<Long> id_pedidos_productos = new ArrayList<>();
 
-        List<Long> id_carritos = producto.getCarritos().stream().
-                map(Carrito::getId_carrito).collect(Collectors.toList());
+        if (producto.getCarritos() != null && !producto.getCarritos().isEmpty()) {
+            id_carritos = producto.getCarritos().stream()
+                    .map(Carrito::getId_carrito)
+                    .collect(Collectors.toList());
+        }
 
-        List<Long> id_pedidos_productos = producto.getPedidos().stream().
-                map(PedidoProducto::getId_pedido_producto).collect(Collectors.toList());
+        if (producto.getPedidos() != null && !producto.getPedidos().isEmpty()) {
+            id_pedidos_productos = producto.getPedidos().stream()
+                    .map(PedidoProducto::getId_pedido_producto)
+                    .collect(Collectors.toList());
+        }
 
-        return new ProductoDto(producto.getId_producto(),
+        return new ProductoDto(
+                producto.getId_producto(),
                 producto.getNombre(),
                 producto.getDescrpcion(),
                 producto.getMarca(),
@@ -93,8 +100,8 @@ public class ProductoMapper {
                 imagenMapper.mapperListToImagen(productoDto.getImagenesDtos()),
                 estiloMapper.mapperToEstilo(productoDto.getEstiloDto()),
                 productoTallaMapper.mapperListToProductoTalla(productoDto.getProductoTallaDtos()),
-                null,
-                null);
+                new ArrayList<>(),
+                new ArrayList<>());
     }
 
 }
