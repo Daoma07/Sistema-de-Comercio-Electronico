@@ -1,6 +1,7 @@
 package com.example.Inventario_Service.mapper;
 
 import com.example.Inventario_Service.entity.Imagen;
+import com.example.Inventario_Service.entity.Producto;
 import com.example.Inventario_Service.repository.ProductoRepository;
 import com.mycompany.utilities.dto.ImagenDto;
 import java.util.ArrayList;
@@ -20,8 +21,13 @@ public class ImagenMapper {
     }
 
     public Imagen mapperToImagen(ImagenDto imagenDto) {
+        Producto producto = null;
+
+        if (imagenDto.getId_producto() != null) {
+            producto = productoRepository.findById(imagenDto.getId_producto()).orElse(null);
+        }
         return new Imagen(imagenDto.getId_imagen(), imagenDto.getContenido(),
-                productoRepository.findById(imagenDto.getId_producto()).orElse(null));
+                producto);
     }
 
     public List<ImagenDto> mapperListToImagenDto(List<Imagen> imagenes) {

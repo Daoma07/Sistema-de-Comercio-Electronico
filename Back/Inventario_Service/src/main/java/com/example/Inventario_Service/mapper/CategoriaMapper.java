@@ -48,7 +48,8 @@ public class CategoriaMapper {
     }
 
     public Categoria mapperToCategoria(CategoriaDto categoriaDto) {
-        return new Categoria(categoriaDto.getId_categoria(),
+        return new Categoria(
+                categoriaDto.getId_categoria(),
                 categoriaDto.getNombre(),
                 categoriaRepository.findAllById(categoriaDto.getId_categorias_hijas()),
                 categoriaRepository.findById(categoriaDto.getId_categoria_padre()).orElse(null),

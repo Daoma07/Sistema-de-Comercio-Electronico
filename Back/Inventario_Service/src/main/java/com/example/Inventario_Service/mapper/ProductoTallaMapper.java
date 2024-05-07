@@ -1,5 +1,6 @@
 package com.example.Inventario_Service.mapper;
 
+import com.example.Inventario_Service.entity.Producto;
 import com.example.Inventario_Service.entity.ProductoTalla;
 import com.example.Inventario_Service.repository.ProductoRepository;
 import com.mycompany.utilities.dto.ProductoTallaDto;
@@ -20,10 +21,14 @@ public class ProductoTallaMapper {
     }
 
     public static ProductoTalla mapperToProductoTalla(ProductoTallaDto productoTallaDto) {
+        Producto producto = null;
+        if (productoTallaDto.getId_producto_talla() == null) {
+            producto = productoRepository.findById(productoTallaDto.getId_producto()).orElse(null);
+        }
         return new ProductoTalla(productoTallaDto.getId_producto_talla(),
                 productoTallaDto.getCantidad(),
                 TallaMapper.mapperToTalla(productoTallaDto.getTallaDto()),
-                productoRepository.findById(productoTallaDto.getId_producto()).orElse(null));
+                producto);
     }
 
     public static List<ProductoTallaDto> mapperListToProductoTallaDto(List<ProductoTalla> productoTallas) {
