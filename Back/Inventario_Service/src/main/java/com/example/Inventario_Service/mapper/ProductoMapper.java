@@ -63,6 +63,24 @@ public class ProductoMapper {
     }
 
     public Producto mapperToProducto(ProductoDto productoDto) {
+
+        if (productoDto.getId_carritos() != null || !productoDto.getId_carritos().isEmpty()) {
+            return new Producto(productoDto.getId_producto(),
+                    productoDto.getNombre(),
+                    productoDto.getDescripcion(),
+                    productoDto.getMarca(),
+                    productoDto.getMaterial(),
+                    productoDto.getColor(),
+                    productoDto.getCodigo(),
+                    productoDto.getPrecio(),
+                    categoriaMapper.mapperToCategoria(productoDto.getCategoriaDto()),
+                    imagenMapper.mapperListToImagen(productoDto.getImagenesDtos()),
+                    estiloMapper.mapperToEstilo(productoDto.getEstiloDto()),
+                    productoTallaMapper.mapperListToProductoTalla(productoDto.getProductoTallaDtos()),
+                    carritoRepository.findAllById(productoDto.getId_carritos()),
+                    pedidoProductoRepository.findAllById(productoDto.getId_pedidos_productos()));
+        }
+
         return new Producto(productoDto.getId_producto(),
                 productoDto.getNombre(),
                 productoDto.getDescripcion(),
@@ -75,7 +93,8 @@ public class ProductoMapper {
                 imagenMapper.mapperListToImagen(productoDto.getImagenesDtos()),
                 estiloMapper.mapperToEstilo(productoDto.getEstiloDto()),
                 productoTallaMapper.mapperListToProductoTalla(productoDto.getProductoTallaDtos()),
-                carritoRepository.findAllById(productoDto.getId_carritos()),
-                pedidoProductoRepository.findAllById(productoDto.getId_pedidos_productos()));
+                null,
+                null);
     }
+
 }
