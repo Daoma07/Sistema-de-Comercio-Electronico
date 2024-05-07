@@ -30,6 +30,9 @@ public class ProductoMapper {
     @Autowired
     private CategoriaMapper categoriaMapper;
 
+    @Autowired
+    private ProductoTallaMapper productoTallaMapper;
+
     public ProductoDto mapperToProductoDto(Producto producto) {
 
         List<Long> id_productos_tallas = producto.getTallas().stream().
@@ -52,7 +55,7 @@ public class ProductoMapper {
                 categoriaMapper.mapperToCategoriaDto(producto.getCategoria()),
                 imagenMapper.mapperListToImagenDto(producto.getImagenes()),
                 estiloMapper.mapperToEstiloDto(producto.getEstilo()),
-                ProductoTallaMapper.mapperListToProductoTallaDto(producto.getTallas()),
+                productoTallaMapper.mapperListToProductoTallaDto(producto.getTallas()),
                 id_carritos,
                 id_pedidos_productos
         );
@@ -71,7 +74,7 @@ public class ProductoMapper {
                 categoriaMapper.mapperToCategoria(productoDto.getCategoriaDto()),
                 imagenMapper.mapperListToImagen(productoDto.getImagenesDtos()),
                 estiloMapper.mapperToEstilo(productoDto.getEstiloDto()),
-                ProductoTallaMapper.mapperListToProductoTalla(productoDto.getProductoTallaDtos()),
+                productoTallaMapper.mapperListToProductoTalla(productoDto.getProductoTallaDtos()),
                 carritoRepository.findAllById(productoDto.getId_carritos()),
                 pedidoProductoRepository.findAllById(productoDto.getId_pedidos_productos()));
     }

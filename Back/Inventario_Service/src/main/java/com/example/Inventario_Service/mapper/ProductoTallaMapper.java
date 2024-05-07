@@ -7,20 +7,22 @@ import com.mycompany.utilities.dto.ProductoTallaDto;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductoTallaMapper {
 
     @Autowired
-    private static ProductoRepository productoRepository;
+    private ProductoRepository productoRepository;
 
-    public static ProductoTallaDto mapperToProductoTallaDto(ProductoTalla productoTalla) {
+    public ProductoTallaDto mapperToProductoTallaDto(ProductoTalla productoTalla) {
         return new ProductoTallaDto(productoTalla.getId_producto_talla(),
                 productoTalla.getCantidad(),
                 TallaMapper.mapperToTallaDto(productoTalla.getTalla()),
                 productoTalla.getId_producto_talla());
     }
 
-    public static ProductoTalla mapperToProductoTalla(ProductoTallaDto productoTallaDto) {
+    public ProductoTalla mapperToProductoTalla(ProductoTallaDto productoTallaDto) {
         Producto producto = null;
         if (productoTallaDto.getId_producto_talla() == null) {
             producto = productoRepository.findById(productoTallaDto.getId_producto()).orElse(null);
@@ -31,7 +33,7 @@ public class ProductoTallaMapper {
                 producto);
     }
 
-    public static List<ProductoTallaDto> mapperListToProductoTallaDto(List<ProductoTalla> productoTallas) {
+    public List<ProductoTallaDto> mapperListToProductoTallaDto(List<ProductoTalla> productoTallas) {
         List<ProductoTallaDto> productoTallaDtos = new ArrayList<>();
         for (ProductoTalla productoTalla : productoTallas) {
             productoTallaDtos.add(mapperToProductoTallaDto(productoTalla));
@@ -39,7 +41,7 @@ public class ProductoTallaMapper {
         return productoTallaDtos;
     }
 
-    public static List<ProductoTalla> mapperListToProductoTalla(List<ProductoTallaDto> productoTallaDtos) {
+    public List<ProductoTalla> mapperListToProductoTalla(List<ProductoTallaDto> productoTallaDtos) {
         List<ProductoTalla> productoTalla = new ArrayList<>();
         for (ProductoTallaDto productoTallaDto : productoTallaDtos) {
             productoTalla.add(mapperToProductoTalla(productoTallaDto));
