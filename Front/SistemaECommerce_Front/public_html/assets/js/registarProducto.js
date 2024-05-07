@@ -223,31 +223,127 @@ function mostrarListaProductos() {
 
 //Guardar el producto 
 function guardarProducto() {
-
-    const colorSelect = document.getElementsByName('color')[0];
-    const materialSelect = document.getElementsByName('material')[0];
-    //  const categoriaSelect = document.querySelector('select[name="categoria"]');
-    const categoriaSelect = document.getElementsByName('categoria')[0];
-    const categoriaJson = categoriaSelect.value;
-    const estiloSelect = document.querySelector('select[name="estilo"]');
-    const estiloJson = estiloSelect.value;
-
-
-    // Recolectar los datos del formulario
+    /*
+        const colorSelect = document.getElementsByName('color')[0];
+        const materialSelect = document.getElementsByName('material')[0];
+        //  const categoriaSelect = document.querySelector('select[name="categoria"]');
+        const categoriaSelect = document.getElementsByName('categoria')[0];
+        const categoriaJson = categoriaSelect.value;
+        const estiloSelect = document.querySelector('select[name="estilo"]');
+        const estiloJson = estiloSelect.value;
+    
+    
+        // Recolectar los datos del formulario
+        const nombre = document.getElementsByName('Nombre')[0].value;
+        const descripcion = document.getElementsByName('descripcion')[0].value;
+        const marca = document.getElementsByName('marca')[0].value;
+        const material = materialSelect.value;
+        const color = colorSelect.value;
+        const codigo = document.getElementsByName('CodigoBarras')[0].value;
+        const precio = parseFloat(document.getElementsByName('Precio')[0].value);
+        const categoria = JSON.parse(categoriaJson);
+    
+        const estilo = JSON.parse(estiloJson);
+    
+        const imagenInput = document.getElementById('product-image-input');
+        const imagenFile = imagenInput.files[0];
+    
+        if (!categoria) {
+            alert('Por favor, selecciona una categoría.');
+            return;
+        }
+    
+        // Función para leer el contenido del archivo de imagen
+        function leerImagen(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    resolve(event.target.result);
+                };
+                reader.onerror = function (error) {
+                    reject(error);
+                };
+                reader.readAsArrayBuffer(file);
+            });
+        }
+    
+        // Leer la imagen y crear el objeto de producto una vez que se complete la lectura
+        leerImagen(imagenFile)
+            .then(contenidoImagen => {
+                const imagenDto = {
+                    contenido: Array.from(new Uint8Array(contenidoImagen)), // Convertir el ArrayBuffer a un array de bytes
+                    id_producto: null
+                };
+    
+                // Crear el objeto de producto
+                const productoDto = {
+                    nombre: nombre,
+                    descripcion: descripcion,
+                    marca: marca,
+                    material: material,
+                    color: color,
+                    codigo: codigo,
+                    precio: precio,
+                    categoriaDto: categoria,
+                    estiloDto: estilo,
+                    productoTallaDtos: listaProductos,
+                    imagenesDtos: [imagenDto] // Agregar el objeto de imagenDto al productoDto
+                };
+    
+                console.log(productoDto.categoriaDto);
+    
+    
+                // Crear el objeto de producto talla
+    
+    
+    
+                // Enviar los datos al servidor
+                fetch('http://192.168.100.21:8081/api/product/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        productoDto: productoDto
+                    }),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error al guardar el producto');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+    
+                        console.log('Producto guardado exitosamente:', data);
+    
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+    
+                    });
+    
+            });
+            */
     const nombre = document.getElementsByName('Nombre')[0].value;
     const descripcion = document.getElementsByName('descripcion')[0].value;
     const marca = document.getElementsByName('marca')[0].value;
+    const materialSelect = document.getElementsByName('material')[0];
     const material = materialSelect.value;
+    const colorSelect = document.getElementsByName('color')[0];
     const color = colorSelect.value;
     const codigo = document.getElementsByName('CodigoBarras')[0].value;
     const precio = parseFloat(document.getElementsByName('Precio')[0].value);
+    const categoriaSelect = document.getElementsByName('categoria')[0];
+    const categoriaJson = categoriaSelect.value;
     const categoria = JSON.parse(categoriaJson);
-
+    const estiloSelect = document.querySelector('select[name="estilo"]');
+    const estiloJson = estiloSelect.value;
     const estilo = JSON.parse(estiloJson);
-
     const imagenInput = document.getElementById('product-image-input');
     const imagenFile = imagenInput.files[0];
 
+    // Verificar si se seleccionó una categoría
     if (!categoria) {
         alert('Por favor, selecciona una categoría.');
         return;
@@ -287,15 +383,10 @@ function guardarProducto() {
                 categoriaDto: categoria,
                 estiloDto: estilo,
                 productoTallaDtos: listaProductos,
-                imagenesDtos: { imagenDto } // Agregar el objeto de imagenDto al productoDto
+                imagenesDtos: [imagenDto] // Cambiado de objeto a array
             };
 
-            console.log(productoDto.categoriaDto);
-
-
-            // Crear el objeto de producto talla
-
-
+            console.log(productoDto)
 
             // Enviar los datos al servidor
             fetch('http://192.168.100.21:8081/api/product/register', {
@@ -303,9 +394,7 @@ function guardarProducto() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    productoDto: productoDto
-                }),
+                body: JSON.stringify(productoDto)
             })
                 .then(response => {
                     if (!response.ok) {
@@ -314,13 +403,10 @@ function guardarProducto() {
                     return response.json();
                 })
                 .then(data => {
-
                     console.log('Producto guardado exitosamente:', data);
-
                 })
                 .catch(error => {
                     console.error('Error:', error);
-
                 });
 
         });

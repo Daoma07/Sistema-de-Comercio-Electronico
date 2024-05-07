@@ -55,7 +55,7 @@ public class ProductoMapper {
     public static Producto mapperToProducto(ProductoDto productoDto) {
         return new Producto(productoDto.getId_producto(),
                 productoDto.getNombre(),
-                productoDto.getDescrpcion(),
+                productoDto.getDescripcion(),
                 productoDto.getMarca(),
                 productoDto.getMaterial(),
                 productoDto.getColor(),

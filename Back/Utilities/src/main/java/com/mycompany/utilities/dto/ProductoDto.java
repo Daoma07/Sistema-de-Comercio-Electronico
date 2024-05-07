@@ -9,7 +9,7 @@ public class ProductoDto implements Serializable {
 
     private Long id_producto;
     private String nombre;
-    private String descrpcion;
+    private String descripcion;
     private String marca;
     private MaterialEnum material;
     private ColorEnum color;
@@ -25,9 +25,9 @@ public class ProductoDto implements Serializable {
     public ProductoDto() {
     }
 
-    public ProductoDto(String nombre, String descrpcion, String marca, MaterialEnum material, ColorEnum color, String codigo, float precio, CategoriaDto categoriaDto, List<ImagenDto> imagenesDtos, EstiloDto estiloDto, List<ProductoTallaDto> productoTallaDtos, List<Long> id_carritos, List<Long> id_pedidos_productos) {
+    public ProductoDto(String nombre, String descripcion, String marca, MaterialEnum material, ColorEnum color, String codigo, float precio, CategoriaDto categoriaDto, List<ImagenDto> imagenesDtos, EstiloDto estiloDto, List<ProductoTallaDto> productoTallaDtos, List<Long> id_carritos, List<Long> id_pedidos_productos) {
         this.nombre = nombre;
-        this.descrpcion = descrpcion;
+        this.descripcion = descripcion;
         this.marca = marca;
         this.material = material;
         this.color = color;
@@ -41,10 +41,10 @@ public class ProductoDto implements Serializable {
         this.id_pedidos_productos = id_pedidos_productos;
     }
 
-    public ProductoDto(Long id_producto, String nombre, String descrpcion, String marca, MaterialEnum material, ColorEnum color, String codigo, float precio, CategoriaDto categoriaDto, List<ImagenDto> imagenesDtos, EstiloDto estiloDto, List<ProductoTallaDto> productoTallaDtos, List<Long> id_carritos, List<Long> id_pedidos_productos) {
+    public ProductoDto(Long id_producto, String nombre, String descripcion, String marca, MaterialEnum material, ColorEnum color, String codigo, float precio, CategoriaDto categoriaDto, List<ImagenDto> imagenesDtos, EstiloDto estiloDto, List<ProductoTallaDto> productoTallaDtos, List<Long> id_carritos, List<Long> id_pedidos_productos) {
         this.id_producto = id_producto;
         this.nombre = nombre;
-        this.descrpcion = descrpcion;
+        this.descripcion = descripcion;
         this.marca = marca;
         this.material = material;
         this.color = color;
@@ -74,12 +74,12 @@ public class ProductoDto implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getDescrpcion() {
-        return descrpcion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescrpcion(String descrpcion) {
-        this.descrpcion = descrpcion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getMarca() {
@@ -172,9 +172,7 @@ public class ProductoDto implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductoDto{" + "id_producto=" + id_producto + ", nombre=" + nombre + ", descrpcion=" + descrpcion + ", marca=" + marca + ", material=" + material + ", color=" + color + ", codigo=" + codigo + ", precio=" + precio + ", categoriaDto=" + categoriaDto + ", imagenesDtos=" + imagenesDtos + ", estiloDto=" + estiloDto + ", productoTallaDtos=" + productoTallaDtos + ", id_carritos=" + id_carritos + ", id_pedidos_productos=" + id_pedidos_productos + '}';
+        return "ProductoDto{" + "id_producto=" + id_producto + ", nombre=" + nombre + ", descripcion=" + descripcion + ", marca=" + marca + ", material=" + material + ", color=" + color + ", codigo=" + codigo + ", precio=" + precio + ", categoriaDto=" + categoriaDto + ", imagenesDtos=" + imagenesDtos + ", estiloDto=" + estiloDto + ", productoTallaDtos=" + productoTallaDtos + ", id_carritos=" + id_carritos + ", id_pedidos_productos=" + id_pedidos_productos + '}';
     }
-    
-    
 
 }
