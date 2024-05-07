@@ -226,7 +226,8 @@ function guardarProducto() {
 
     const colorSelect = document.getElementsByName('color')[0];
     const materialSelect = document.getElementsByName('material')[0];
-    const categoriaSelect = document.querySelector('select[name="categoria"]');
+    //  const categoriaSelect = document.querySelector('select[name="categoria"]');
+    const categoriaSelect = document.getElementsByName('categoria')[0];
     const categoriaJson = categoriaSelect.value;
     const estiloSelect = document.querySelector('select[name="estilo"]');
     const estiloJson = estiloSelect.value;
@@ -241,6 +242,7 @@ function guardarProducto() {
     const codigo = document.getElementsByName('CodigoBarras')[0].value;
     const precio = parseFloat(document.getElementsByName('Precio')[0].value);
     const categoria = JSON.parse(categoriaJson);
+
     const estilo = JSON.parse(estiloJson);
 
     const imagenInput = document.getElementById('product-image-input');
@@ -283,9 +285,7 @@ function guardarProducto() {
                 imagenesDtos: { imagenDto } // Agregar el objeto de imagenDto al productoDto
             };
 
-
-
-            console.log(productoDto);
+            console.log(productoDto.categoriaDto);
 
 
             // Crear el objeto de producto talla

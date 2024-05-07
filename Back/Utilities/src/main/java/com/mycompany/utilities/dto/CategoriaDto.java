@@ -1,8 +1,9 @@
 package com.mycompany.utilities.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CategoriaDto {
+public class CategoriaDto implements Serializable {
 
     private Long id_categoria;
     private String nombre;
