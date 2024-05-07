@@ -64,7 +64,7 @@ public class ProductoMapper {
 
     public Producto mapperToProducto(ProductoDto productoDto) {
 
-        if (productoDto.getId_carritos() != null || !productoDto.getId_carritos().isEmpty()) {
+        if (productoDto.getId_carritos() != null && !productoDto.getId_carritos().isEmpty()) {
             return new Producto(productoDto.getId_producto(),
                     productoDto.getNombre(),
                     productoDto.getDescripcion(),
