@@ -3,7 +3,6 @@ package com.example.Inventario_Service.mapper;
 import com.example.Inventario_Service.entity.Carrito;
 import com.example.Inventario_Service.entity.PedidoProducto;
 import com.example.Inventario_Service.entity.Producto;
-import com.example.Inventario_Service.entity.ProductoTalla;
 import com.example.Inventario_Service.repository.CarritoRepository;
 import com.example.Inventario_Service.repository.PedidoProductoRepository;
 import com.mycompany.utilities.dto.ProductoDto;
@@ -35,17 +34,9 @@ public class ProductoMapper {
     private ProductoTallaMapper productoTallaMapper;
 
     public ProductoDto mapperToProductoDto(Producto producto) {
-        // Inicializar las listas vacías para evitar NullPointerException
-        List<Long> id_productos_tallas = new ArrayList<>();
+
         List<Long> id_carritos = new ArrayList<>();
         List<Long> id_pedidos_productos = new ArrayList<>();
-
-        // Verificar si las listas no son null antes de operar con ellas
-        if (producto.getTallas() != null && !producto.getTallas().isEmpty()) {
-            id_productos_tallas = producto.getTallas().stream()
-                    .map(ProductoTalla::getId_producto_talla)
-                    .collect(Collectors.toList());
-        }
 
         if (producto.getCarritos() != null && !producto.getCarritos().isEmpty()) {
             id_carritos = producto.getCarritos().stream()

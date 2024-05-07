@@ -21,6 +21,7 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public ProductoDto createProduct(ProductoDto productoDto) {
         Producto producto = productoMapper.mapperToProducto(productoDto);
+
         for (Imagen imagene : producto.getImagenes()) {
             imagene.setProducto(producto);
         }
