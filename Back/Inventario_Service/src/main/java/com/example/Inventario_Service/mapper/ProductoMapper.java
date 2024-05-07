@@ -41,19 +41,19 @@ public class ProductoMapper {
         List<Long> id_pedidos_productos = new ArrayList<>();
 
         // Verificar si las listas no son null antes de operar con ellas
-        if (producto.getTallas() != null) {
+        if (producto.getTallas() != null && !producto.getTallas().isEmpty()) {
             id_productos_tallas = producto.getTallas().stream()
                     .map(ProductoTalla::getId_producto_talla)
                     .collect(Collectors.toList());
         }
 
-        if (producto.getCarritos() != null) {
+        if (producto.getCarritos() != null && !producto.getCarritos().isEmpty()) {
             id_carritos = producto.getCarritos().stream()
                     .map(Carrito::getId_carrito)
                     .collect(Collectors.toList());
         }
 
-        if (producto.getPedidos() != null) {
+        if (producto.getPedidos() != null && !producto.getPedidos().isEmpty()) {
             id_pedidos_productos = producto.getPedidos().stream()
                     .map(PedidoProducto::getId_pedido_producto)
                     .collect(Collectors.toList());
