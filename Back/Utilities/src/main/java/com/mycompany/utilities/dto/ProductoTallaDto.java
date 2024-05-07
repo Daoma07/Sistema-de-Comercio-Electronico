@@ -1,6 +1,8 @@
 package com.mycompany.utilities.dto;
 
-public class ProductoTallaDto {
+import java.io.Serializable;
+
+public class ProductoTallaDto implements Serializable {
 
     private Long id_producto_talla;
     private int cantidad;

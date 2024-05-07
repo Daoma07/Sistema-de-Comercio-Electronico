@@ -1,8 +1,9 @@
 package com.mycompany.utilities.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class EstiloDto {
+public class EstiloDto implements Serializable {
 
     private Long id_estilo;
     private String nombre;

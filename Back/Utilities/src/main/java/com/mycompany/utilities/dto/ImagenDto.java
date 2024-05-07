@@ -1,6 +1,8 @@
 package com.mycompany.utilities.dto;
 
-public class ImagenDto {
+import java.io.Serializable;
+
+public class ImagenDto implements Serializable {
 
     private Long id_imagen;
     private byte[] contenido;

@@ -1,8 +1,9 @@
 package com.mycompany.utilities.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TarifaEnvioDto {
+public class TarifaEnvioDto implements Serializable {
 
     private Long id_tarifa_envio;
     private String desripcion;

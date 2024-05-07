@@ -2,9 +2,10 @@ package com.mycompany.utilities.dto;
 
 import com.mycompany.utilities.dto.enums.ColorEnum;
 import com.mycompany.utilities.dto.enums.MaterialEnum;
+import java.io.Serializable;
 import java.util.List;
 
-public class ProductoDto {
+public class ProductoDto implements Serializable {
 
     private Long id_producto;
     private String nombre;

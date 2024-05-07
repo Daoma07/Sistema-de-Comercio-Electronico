@@ -2,9 +2,10 @@ package com.mycompany.utilities.dto;
 
 import com.mycompany.utilities.dto.enums.EstatusPagoEnum;
 import com.mycompany.utilities.dto.enums.TipoPagoEnum;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class PagoDto {
+public class PagoDto implements Serializable {
 
     private Long id_pago;
     private TipoPagoEnum tipoPagoEnum;

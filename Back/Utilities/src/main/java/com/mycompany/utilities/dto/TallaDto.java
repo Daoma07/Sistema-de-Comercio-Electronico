@@ -1,8 +1,9 @@
 package com.mycompany.utilities.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TallaDto {
+public class TallaDto implements Serializable {
 
     private Long id_talla;
     private String talla_us;

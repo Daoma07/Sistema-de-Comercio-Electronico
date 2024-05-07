@@ -1,6 +1,8 @@
 package com.mycompany.utilities.dto;
 
-public class CarritoDto {
+import java.io.Serializable;
+
+public class CarritoDto implements Serializable {
 
     private Long id_carrito;
     private float importe;

@@ -1,11 +1,12 @@
 package com.mycompany.utilities.dto;
 
 import com.mycompany.utilities.dto.enums.EstatusEnum;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-public class PedidoDto {
+public class PedidoDto implements Serializable {
 
     private Long id_pedido;
     private Timestamp fechaHora;
@@ -46,8 +47,6 @@ public class PedidoDto {
         this.id_pedido_productos = id_pedido_productos;
         this.pagoDto = pagoDto;
     }
-    
-    
 
     public Long getId_pedido() {
         return id_pedido;
