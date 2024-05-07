@@ -26,13 +26,16 @@ public class TallaServiceImpl implements TallaService {
     @Autowired
     private TallaRepository tallaRepository;
 
+    @Autowired
+    private TallaMapper tallaMapper;
+
     @Transactional
     @Override
     public List<TallaDto> readAllTalla() {
         List<Talla> tallas = tallaRepository.findAll();
         List<TallaDto> tallasDto = new ArrayList<>();
         for (Talla talla : tallas) {
-            tallasDto.add(TallaMapper.mapperToTallaDto(talla));
+            tallasDto.add(tallaMapper.mapperToTallaDto(talla));
         }
         return tallasDto;
     }
