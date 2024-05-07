@@ -7,13 +7,15 @@ import com.mycompany.utilities.dto.TallaDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TallaMapper {
 
     @Autowired
-    private static ProductoTallaRepository productoTallaRepository;
+    private ProductoTallaRepository productoTallaRepository;
 
-    public static TallaDto mapperToTallaDto(Talla talla) {
+    public TallaDto mapperToTallaDto(Talla talla) {
         List<Long> id_productos_tallas = talla.getProductos().stream().
                 map(ProductoTalla::getId_producto_talla).collect(Collectors.toList());
 
@@ -24,7 +26,8 @@ public class TallaMapper {
         );
     }
 
-    public static Talla mapperToTalla(TallaDto tallaDto) {
+    public Talla mapperToTalla(TallaDto tallaDto) {
+
         return new Talla(tallaDto.getId_talla(),
                 tallaDto.getTalla_us(),
                 tallaDto.getTalla_mx(),

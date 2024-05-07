@@ -15,10 +15,13 @@ public class ProductoTallaMapper {
     @Autowired
     private ProductoRepository productoRepository;
 
+    @Autowired
+    private TallaMapper tallaMapper;
+
     public ProductoTallaDto mapperToProductoTallaDto(ProductoTalla productoTalla) {
         return new ProductoTallaDto(productoTalla.getId_producto_talla(),
                 productoTalla.getCantidad(),
-                TallaMapper.mapperToTallaDto(productoTalla.getTalla()),
+                tallaMapper.mapperToTallaDto(productoTalla.getTalla()),
                 productoTalla.getId_producto_talla());
     }
 
@@ -29,7 +32,7 @@ public class ProductoTallaMapper {
         }
         return new ProductoTalla(productoTallaDto.getId_producto_talla(),
                 productoTallaDto.getCantidad(),
-                TallaMapper.mapperToTalla(productoTallaDto.getTallaDto()),
+                tallaMapper.mapperToTalla(productoTallaDto.getTallaDto()),
                 producto);
     }
 
