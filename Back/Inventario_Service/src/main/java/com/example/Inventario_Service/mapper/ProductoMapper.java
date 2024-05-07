@@ -7,6 +7,7 @@ import com.example.Inventario_Service.entity.ProductoTalla;
 import com.example.Inventario_Service.repository.CarritoRepository;
 import com.example.Inventario_Service.repository.PedidoProductoRepository;
 import com.mycompany.utilities.dto.ProductoDto;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,17 +35,32 @@ public class ProductoMapper {
     private ProductoTallaMapper productoTallaMapper;
 
     public ProductoDto mapperToProductoDto(Producto producto) {
+        // Inicializar las listas vacías para evitar NullPointerException
+        List<Long> id_productos_tallas = new ArrayList<>();
+        List<Long> id_carritos = new ArrayList<>();
+        List<Long> id_pedidos_productos = new ArrayList<>();
 
-        List<Long> id_productos_tallas = producto.getTallas().stream().
-                map(ProductoTalla::getId_producto_talla).collect(Collectors.toList());
+        // Verificar si las listas no son null antes de operar con ellas
+        if (producto.getTallas() != null) {
+            id_productos_tallas = producto.getTallas().stream()
+                    .map(ProductoTalla::getId_producto_talla)
+                    .collect(Collectors.toList());
+        }
 
-        List<Long> id_carritos = producto.getCarritos().stream().
-                map(Carrito::getId_carrito).collect(Collectors.toList());
+        if (producto.getCarritos() != null) {
+            id_carritos = producto.getCarritos().stream()
+                    .map(Carrito::getId_carrito)
+                    .collect(Collectors.toList());
+        }
 
-        List<Long> id_pedidos_productos = producto.getPedidos().stream().
-                map(PedidoProducto::getId_pedido_producto).collect(Collectors.toList());
+        if (producto.getPedidos() != null) {
+            id_pedidos_productos = producto.getPedidos().stream()
+                    .map(PedidoProducto::getId_pedido_producto)
+                    .collect(Collectors.toList());
+        }
 
-        return new ProductoDto(producto.getId_producto(),
+        return new ProductoDto(
+                producto.getId_producto(),
                 producto.getNombre(),
                 producto.getDescrpcion(),
                 producto.getMarca(),

@@ -2,6 +2,7 @@ package com.example.Inventario_Service.entity;
 
 import com.mycompany.utilities.dto.enums.ColorEnum;
 import com.mycompany.utilities.dto.enums.MaterialEnum;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -63,7 +64,7 @@ public class Producto {
     private Categoria categoria;
 
     //Relacion con imagen
-    @OneToMany(mappedBy = "producto")
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
     private List<Imagen> imagenes;
 
     //Relacion con estilo
@@ -72,7 +73,7 @@ public class Producto {
     private Estilo estilo;
 
     //Relacion con talla
-    @OneToMany(mappedBy = "producto")
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
     private List<ProductoTalla> tallas;
 
     //Relacion con carrito
