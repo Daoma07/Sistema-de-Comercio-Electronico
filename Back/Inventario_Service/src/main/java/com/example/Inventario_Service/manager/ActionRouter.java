@@ -74,7 +74,10 @@ public class ActionRouter {
     private ResponseFormat createProduct(String content) {
         try {
             ProductoDto productoDto = objectMapper.readValue(content, ProductoDto.class);
-            productoDto = productoServiceImpl.createProduct(productoDto);
+            //System.out.println("Datos de la categoria desde el servidor");
+           // System.out.println(productoDto.getCategoriaDto().getId_categoria());
+            System.out.println(productoDto.getCategoriaDto().getNombre());
+          productoDto = productoServiceImpl.createProduct(productoDto);
             return new ResponseFormat(objectMapper.writeValueAsString(productoDto),
                     HttpStatus.OK.value());
         } catch (Exception ex) {

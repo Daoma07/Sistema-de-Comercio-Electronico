@@ -34,6 +34,8 @@ public class GatewayProductoController {
 
     @PostMapping("/register")
     public ResponseFormat servicioRegister(@RequestBody ProductoDto productoDto) throws JsonProcessingException {
+        System.out.println("Datos de la categoria desde el gateway");
+         System.out.println(productoDto.getCategoriaDto().getId_categoria());
         String jsonusuario = objectMapper.writeValueAsString(productoDto);
         RequestFormat requestFormat = new RequestFormat(jsonusuario, "create-product");
         return rabbitMQClient.sendMessageInventario(requestFormat);
