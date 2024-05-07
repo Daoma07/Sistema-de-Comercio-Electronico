@@ -24,7 +24,7 @@ public class ProductoTallaMapper {
 
     public ProductoTalla mapperToProductoTalla(ProductoTallaDto productoTallaDto) {
         Producto producto = null;
-        if (productoTallaDto.getId_producto() == null) {
+        if (productoTallaDto.getId_producto() != null) {
             producto = productoRepository.findById(productoTallaDto.getId_producto()).orElse(null);
         }
         return new ProductoTalla(productoTallaDto.getId_producto_talla(),
