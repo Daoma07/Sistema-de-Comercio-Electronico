@@ -51,5 +51,4 @@ public class ImagenDto implements Serializable {
         return "ImagenDto{" + "id_imagen=" + id_imagen + ", contenido=" + contenido + ", id_producto=" + id_producto + '}';
     }
 
-    
 }
